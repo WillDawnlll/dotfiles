@@ -71,7 +71,7 @@ function s:CONFIG_vim_base() "{{{
     else
         " console colorscheme
         "Plug 'chriskempson/base16-vim'
-        color base16
+        "color base16
     endif
 
 
@@ -1594,8 +1594,10 @@ function ToggleCaption() "{{{
         let g:wincaption=1
     endif
 endfunction "}}}
-au VimEnter * call ToggleCaption()
-nmap <F11> :call ToggleCaption()<cr>
+if s:is_win
+    au VimEnter * call ToggleCaption()
+    nmap <F11> :call ToggleCaption()<cr>
+endif
 
 function FixBottom() "{{{
     if !has("python3")
@@ -1618,7 +1620,9 @@ function FixBottom() "{{{
         u32.SetWindowPos( hwnd, HWND_TOP, r.left, r.top, r.right-r.left, r.bottom-r.top+(19 if wincaption else -19), SWP_SHOWWINDOW)
     EOF
 endfunction "}}}
-nmap <F12> :call FixBottom()<cr>
+if s:is_win
+    nmap <F12> :call FixBottom()<cr>
+endif
 
 function W() "{{{
     if !has("python3")
@@ -1655,17 +1659,19 @@ nmap <F2> :call W()<cr>
 "
 call <sid>CONFIG_plugs_base() " not cover base set , call must before vim_base
 call <sid>CONFIG_vim_base()
-"call <sid>CONFIG_plugs_ext()
-"call <sid>CONFIG_plugs_temp()
+call <sid>CONFIG_plugs_ext()
 call <sid>CONFIG_au_filetype()
 call <sid>CONFIG_macro()
 call <sid>CONFIG_map()
 call <sid>CONFIG_cmd()
-"call <sid>CONFIG_lsp()
-call <sid>CONFIG_win()
+call <sid>CONFIG_lsp()
 
-source ~/vimrc/winwork.vimrc
-"call <sid>CONFIG_hr()
-source ~/vimrc/misc.vimrc
+if s:is_win
+    call <sid>CONFIG_plugs_temp()
+    call <sid>CONFIG_win()
+    source ~/vimrc/winwork.vimrc
+    "call <sid>CONFIG_hr()
+    source ~/vimrc/misc.vimrc
+endif
 "TODO try catch , source empty vimrc , no plug mode restart vim
 "set csprg= "C:/tools/open_code/cscope/cscope.exe"
