@@ -153,9 +153,10 @@ function s:CONFIG_vim_base() "{{{
     hi NonText gui=reverse
     "set listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+,space:·
     "set lcs+=space:·
-    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
+    "set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
+    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+
     set list 
-    set invlist
+    "set invlist
 
     set relativenumber
     set nu
@@ -170,10 +171,12 @@ function s:CONFIG_vim_base() "{{{
     set vb
     "
     set cursorline
-    set cursorcolumn
     hi Cursor  cterm=reverse gui=reverse
     hi CursorLine     guibg=black ctermbg=black
-    hi CursorColumn   guibg=black ctermbg=black
+    if s:is_win
+        set cursorcolumn
+        hi CursorColumn   guibg=black ctermbg=black
+    endif
     "hi CursorColumn cterm=reverse gui=reverse
     "hi CursorLine cterm=reverse gui=reverse
     "
