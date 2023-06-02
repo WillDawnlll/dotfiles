@@ -154,7 +154,7 @@ function s:CONFIG_vim_base() "{{{
     "set listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+,space:·
     "set lcs+=space:·
     "set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
-    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+
+    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·
     set list 
     "set invlist
 
@@ -174,6 +174,9 @@ function s:CONFIG_vim_base() "{{{
     hi Cursor  cterm=reverse gui=reverse
     hi CursorLine     guibg=black ctermbg=black
     if s:is_win
+        set cursorcolumn
+        hi CursorColumn   guibg=black ctermbg=black
+    else
         set cursorcolumn
         hi CursorColumn   guibg=black ctermbg=black
     endif
@@ -222,10 +225,10 @@ function s:CONFIG_vim_base() "{{{
 
     set whichwrap=b,s,<,>,[,],h,l 
 
-    " system clipboard
-    set clipboard=unnamed
+    " * register (select text) system clipboard
+    "set clipboard=unnamed
     " + register : x window clipboard
-    "set clipboard=unnamedplus
+    set clipboard=unnamedplus
 
     " markdown context always auto fold , this disable
     set foldlevelstart=0
@@ -492,7 +495,7 @@ function s:CONFIG_plugs_base() "{{{
     let g:vista#executives = ['coc','ctags']
     let g:vista_default_executive = 'coc'
     " local_depend 本地目录依赖标志,换机需改
-    let g:vista_ctags_executable = 'C:\tools\open_code\ctags-2020-10-26_p5.9.20201025.0-2-g5d000b1a-x86\ctags.exe'
+    "let g:vista_ctags_executable = 'C:\tools\open_code\ctags-2020-10-26_p5.9.20201025.0-2-g5d000b1a-x86\ctags.exe'
     let g:vista_executive_for = {'typescript': 'coc', 'go': 'coc', 'c': 'coc', 'javascript': 'coc', 'html': 'coc', 'rust': 'coc', 'cpp': 'coc', 'css': 'coc', 'python': 'coc','vim':'ctags','java':'coc'}
     let g:vista_sidebar_position = 'vertical topleft'
     let g:vista_sidebar_width = 30
@@ -844,16 +847,23 @@ function s:CONFIG_au_filetype() "{{{
     "let g:vim_markdown_strikethrough = 1
 
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
-    autocmd FileType c setlocal noet path+=C:/Program\\\ Files\\\ (x86)/Windows\\\ Kits/10/Include/10.0.19041.0/
-    autocmd FileType c,cpp setlocal foldmethod=indent
+
+    if s:is_win
+        autocmd FileType c setlocal noet path+=C:/Program\\\ Files\\\ (x86)/Windows\\\ Kits/10/Include/10.0.19041.0/
+        "autocmd FileType python setlocal path+=C:/Users/test/AppData/Local/Programs/Python/Python39/Lib/
+        autocmd FileType python setlocal path+=C:/Python27/Lib
+        autocmd FileType python let $PYTHONPATH ='D:\code\pytest\work'
+    else
+        autocmd FileType c setlocal et
+    endif
+    autocmd FileType c,cpp,python setlocal foldmethod=indent
     autocmd BufRead,BufNewFile *.h,*.c setlocal filetype=c list lcs=tab:\|_
-    "autocmd FileType python setlocal path+=C:/Users/test/AppData/Local/Programs/Python/Python39/Lib/
-    autocmd FileType python setlocal path+=C:/Python27/Lib
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType python let $PYTHONPATH ='D:\code\pytest\work'
-    "remote_foreground(v:servername)
-    autocmd FileType * call <SID>def_base_syntax() 
+
     autocmd FileType diff set ft=gitcommit
+
+    "remote_foreground(v:servername)
+
+    autocmd FileType * call <SID>def_base_syntax() 
     function! s:def_base_syntax() "{{{
         " Simple example
         syntax match commonOperator "\(+\|=\|-\|\^\|\*\|&\||\|>\|!\)"
@@ -1139,8 +1149,8 @@ endfunc
 
 function! DictSearch(word)
     "let rg="C:\\hr_repositories\\virdb\\tools\\win64\\rg.exe"
-    let rg="C:\\tools\\open_code\\ripgrep-12.1.1-i686-pc-windows-msvc\\rg.exe"
-    let ecdict="C:\\Users\\test\\ecdict.csv"
+    let rg="rg"
+    let ecdict="~/ECDICT/ecdict.csv"
     let opts = {"close":"button", "title":"DictSearch: <".a:word.">","col":6+col("."),"line":winline()+2}
     let cmd_str=rg.' -i "^'.a:word.'," '.ecdict
     let result_str=system(cmd_str)
@@ -1650,6 +1660,11 @@ function W() "{{{
 endfunction "}}}
 nmap <F2> :call W()<cr>
 
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
+augroup MyQuickfixPreview
+  au!
+  au FileType qf noremap <silent><buffer> p :call quickui#tools#preview_quickfix()<cr>
+augroup END
 " }}}
 
 
