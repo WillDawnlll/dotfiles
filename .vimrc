@@ -256,6 +256,8 @@ function s:CONFIG_vim_base() "{{{
 
     set  report       =0
     set  synmaxcol    =200
+
+    set modeline
 endfunction "}}}
 
 
@@ -496,7 +498,7 @@ function s:CONFIG_plugs_base() "{{{
     let g:vista_default_executive = 'coc'
     " local_depend 本地目录依赖标志,换机需改
     "let g:vista_ctags_executable = 'C:\tools\open_code\ctags-2020-10-26_p5.9.20201025.0-2-g5d000b1a-x86\ctags.exe'
-    let g:vista_executive_for = {'typescript': 'coc', 'go': 'coc', 'c': 'coc', 'javascript': 'coc', 'html': 'coc', 'rust': 'coc', 'cpp': 'coc', 'css': 'coc', 'python': 'coc','vim':'ctags','java':'coc'}
+    let g:vista_executive_for = {'lua': 'coc', 'typescript': 'coc', 'go': 'coc', 'c': 'coc', 'javascript': 'coc', 'html': 'coc', 'rust': 'coc', 'cpp': 'coc', 'css': 'coc', 'python': 'coc','vim':'ctags','java':'coc'}
     let g:vista_sidebar_position = 'vertical topleft'
     let g:vista_sidebar_width = 30
     let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
