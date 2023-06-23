@@ -1,0 +1,132 @@
+# ln -s ~/dotfiles/py3status_config ~/.config/i3status/config
+
+general {
+        colors = true
+        interval = 5
+        color_separator = "#00FFFF"
+}
+
+#order += "ipv6"
+order += "net_rate"
+order += "wireless _first_"
+order += "ethernet _first_"
+#order += "disk /"
+
+#order += "load"
+#order += "cpu_temperature 0"
+#order += "memory"
+#order += "cpu_usage"
+order += "sysdata"
+#order += "volume master"
+order += "volume_status"
+order += "backlight"
+#order += "battery all"
+order += "battery_level"
+order += "tztime local"
+
+volume_status {
+        cache_timeout = 1
+}
+
+backlight {
+        cache_timeout = 1
+}
+
+wireless _first_ {
+        format_up = "%essid:%ip"
+        format_down = "W"
+}
+
+ethernet _first_ {
+        format_up = "%ip"
+        format_down = "E"
+}
+
+net_rate {
+        format = "↓{down} ↑{up}"
+        #format = "  {total}"
+        precision = 0
+        si_units = true
+        unit = "B"
+        format_value = "[\?min_length=3 {value:.1f}{unit}]"
+        format_no_connection = ""
+        cache_timeout = 2
+}
+
+battery all {
+        format = " %status %percentage %remaining "
+        #format = " %status %remaining (%emptytime %consumption) "
+        status_chr =  "⚡CHR"
+        status_bat =  "🔋BAT"
+        status_unk =  "? UNK"
+        status_full = "☻ FULL"
+        low_threshold = 10
+        threshold_type = "percentage"
+        last_full_capacity = true
+        #hide_seconds = false
+}
+
+battery_level {
+        cache_timeout = 10
+        color_bad = "#FF0000"
+        color_charging = "#FCE94F"
+        color_degraded = "#ff7a00"
+        color_good = "#00FF00"
+
+        format_notify_charging = "charging"
+        format_notify_discharging = "discharging {percent}"
+        hide_when_full = False
+        #hide_seconds = True
+        notification = True
+        notify_low_level = True
+        blocks = ""
+        charging_character = ""
+        format = " {percent} {icon} {time_remaining}"
+        color_charging = "#FFFFFF"
+}
+
+disk "/" {
+        format = " 💾%avail "
+}
+
+load {
+        format = " T%1min "
+}
+
+memory {
+        format = " [*]%used [ ]%available "
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+tztime local {
+        format = "  %Z %m-%d %H:%M"
+        timezone = "Asia/Shanghai"
+}
+
+cpu_temperature 0 {
+        format = "T: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/temp1_input"
+}
+
+cpu_usage {
+        format = " C%usage "
+        max_threshold = 75
+        #format_above_threshold: Warning above threshold: %usage
+        degraded_threshold = 25
+        #format_above_degraded_threshold = %usage
+}
+
+sysdata {
+        cache_timeout = 10
+        format = ' C[\?color=cpu_used_percent {cpu_used_percent:.1f}%][\?color=gray {cpu_temp:.1f}°C] M[\?color=mem_used_percent {mem_used_percent:.1f}%][\?color=gray {mem_used:.1f}{mem_unit}] '
+}
+
+
+volume master {
+        format = " ♪ %volume "
+        format_muted = " ♪muted(%volume) "
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
