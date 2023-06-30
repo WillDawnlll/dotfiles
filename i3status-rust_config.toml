@@ -84,7 +84,7 @@ action = "cycle"
 
 [[block]]
 block = "temperature"
-format = " $icon MAX:$max "
+format = " $icon $max "
 format_alt = " $icon AVG:$average "
 interval = 10
 chip = "*-isa-*"
