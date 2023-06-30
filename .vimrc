@@ -264,6 +264,11 @@ endfunction "}}}
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
     ""temp {{{
+    Plug 'github/copilot.vim',
+    Plug 'jeetsukumaran/vim-filebeagle'
+    "Plug 'preservim/nerdtree'
+    "Plug 'justinmk/vim-dirvish'
+    "
     "Plug 'yaegassy/coc-marksman',
     ""Plug 'mbbill/undotree'
     "Plug 'pboettch/vim-cmake-syntax'
@@ -303,7 +308,7 @@ function s:CONFIG_vimplug() "{{{
     Plug 'xolox/vim-session'
     "Plug 'voldikss/vim-floaterm'
     Plug 'skywind3000/asyncrun.vim'
-    "Plug 'voldikss/vim-translator'
+    Plug 'voldikss/vim-translator'
     "Plug 'plasticboy/vim-markdown'
     "}}}
 
@@ -605,20 +610,20 @@ function s:CONFIG_plugs_ext() "{{{
     "			\ }
     "}}}
     " translator {{{
-    let g:translator_default_engines=['bing',]
+    let g:translator_default_engines=['google',]
     "let g:translator_proxy_url = 'socks5://127.0.0.1:10808'
     "let g:translator_proxy_url = 'http://127.0.0.1:10809'
     "let g:translator_debug_mode=1 "log 中详细
     command  -nargs=* Tr Translate <args>
     command  -nargs=* Tre Translate --engines=google --target_lang=en <args>
     " 选中区域翻译
-    "vmap  <M-t> :Translate<cr>
-    "vmap  <Leader>t :TranslateW<cr>
-    vmap  <Leader>ta :TranslateW --engines=google<cr>
-    "nmap  <Leader>t :TranslateW<cr>
-    nmap  <Leader>tg :TranslateW --engines=google<cr>
-    nmap  <Leader>te :TranslateW --engines=google --target_lang=en <cr>
-    vmap  <Leader>tr :TranslateR --engines=google<cr>
+    vmap  <leader>g :TranslateW<cr>
+    nmap  <leader>g :TranslateW<cr>
+    "vmap  <Leader>ta :TranslateW --engines=google<cr>
+    "nmap  <Leader>tg :TranslateW --engines=google<cr>
+    vmap  <Leader>ge :TranslateW --engines=google --target_lang=en <cr>
+    nmap  <Leader>ge :TranslateW --engines=google --target_lang=en <cr>
+    "vmap  <Leader>tr :TranslateR --engines=google<cr>
     " 选中区域翻译到下一行
     nmap  <Leader>tn :call Tr_next_line()<cr>
     " 选中区域翻译结果到剪贴板
