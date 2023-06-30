@@ -1,0 +1,24 @@
+#TabsToolbar {
+  visibility: collapse;
+}
+
+#titlebar {
+  visibility: collapse;
+}
+
+#sidebar-header {
+  visibility: collapse !important;
+}
+
+#nav-bar { 
+    padding-right: 150px; 
+    padding-left: 10px;
+}
+
+#TabsToolbar .titlebar-buttonbox-container {
+    visibility: visible !important;
+    position: absolute;
+    display: block;
+    top: 6px;
+    right: 0;
+}
