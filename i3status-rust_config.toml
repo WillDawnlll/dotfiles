@@ -50,14 +50,14 @@ critical_bg = "#003333"
 
 [[block]]
 block = "cpu"
-format = " $icon $utilization $frequency"
+format = " $icon $utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
 idle_bg = "#444444"
 
 # cpupower monitor max frequency governor
 #[[block]]
 #block = "custom"
-#command = "printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+#command = "printf '[%s %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 #interval = 30
 #[block.theme_overrides]
 #idle_bg = "#444444"
@@ -67,10 +67,11 @@ idle_bg = "#444444"
 # add to /etc/sudoers "username hostname = (root) NOPASSWD: /usr/bin/cpupower"
 [[block]]
 block = "custom"
-#command = "printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+#command = "printf '[%s %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
-    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
+    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 ]
 interval = "once"
 [block.theme_overrides]
@@ -177,3 +178,16 @@ format = " $timestamp.datetime(f:'%a %m%d %R') "
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#00ffff"
+
+# keyboard CAPS lock status
+[[block]]
+block = "custom"
+format = "CAPS"
+command = ''' echo "{\"state\":\"$($(xset -q |rg -o 'Caps Lock:.......'|rg -ioq on) && echo Critical || echo Idle)\"}" '''
+json = true
+interval = 1
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#aaaaaa"
+critical_fg = "#ff00ff"
+critical_bg = "#000000"
