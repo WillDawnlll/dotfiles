@@ -1,0 +1,179 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "dracula"
+[theme.overrides]
+#separator = ""
+separator = ""
+#separator = ""
+#separator_fg = "#ffffff"
+idle_bg = "#003333"
+
+[icons]
+#icons = "material"
+icons = "material-nf"
+#icons = "awesome4"
+[icons.overrides]
+#memory_mem = ""
+net_vpn = "V2a"
+#bat = ["|E|", "|_|", "|=|", "|F|"]
+#bat_charging = "|^| "
+
+
+######################
+#block
+
+[[block]]
+block = "net"
+format = " ↓$speed_down ↑$speed_up "
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#aaaaaa"
+
+[[block]]
+block = "net"
+interval = 5
+format = " $icon {$signal_strength $ssid} $ip "
+[block.theme_overrides]
+idle_fg = "#ffffff"
+
+[[block]]
+block = "service_status"
+service = "v2raya"
+active_format = "^icon_net_vpn "
+inactive_format = "^icon_net_vpn "
+[block.theme_overrides]
+idle_fg = "#00ff00"
+idle_bg = "#003333"
+critical_fg = "#777777"
+critical_bg = "#003333"
+
+[[block]]
+block = "cpu"
+format = " $icon $utilization $frequency"
+[block.theme_overrides]
+idle_bg = "#444444"
+
+# cpupower monitor max frequency governor
+#[[block]]
+#block = "custom"
+#command = "printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+#interval = 30
+#[block.theme_overrides]
+#idle_bg = "#444444"
+#idle_fg = "#aaaaaa"
+
+# cpupower switch
+# add to /etc/sudoers "username hostname = (root) NOPASSWD: /usr/bin/cpupower"
+[[block]]
+block = "custom"
+#command = "printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+cycle = [
+    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
+    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '[%sHz %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+]
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#444444"
+idle_fg = "#aaaaaa"
+[[block.click]]
+button = "right"
+action = "cycle"
+
+
+[[block]]
+block = "temperature"
+format = " $icon MAX:$max "
+format_alt = " $icon AVG:$average "
+interval = 10
+chip = "*-isa-*"
+[block.theme_overrides]
+idle_bg = "#444444"
+
+# sudo need user passwd
+#[[block]]
+#block = "custom"
+#command = ''' sudo intel_gpu_top -l | head -n4 | tail -n1 | awk '{print $8 "%"}' '''
+#interval = 5
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used_percents.eng(w:1) "
+format_alt = " $icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
+interval = 30
+warning_mem = 70
+critical_mem = 90
+
+# EDIFIER TWS NB3
+[[block]]
+block = "bluetooth"
+mac = "0C:AE:BD:69:19:0D"
+disconnected_format = ""
+format = " $icon EDIFIER "
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+# Mi Air2 SE
+[[block]]
+block = "bluetooth"
+mac = "9C:97:89:59:39:CF"
+disconnected_format = ""
+format = " $icon MI "
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+[[block]]
+block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+[block.theme_overrides]
+idle_bg = "#444444"
+
+# monitor
+#[[block]]
+#block = "custom"
+#command = "xrandr --listmonitors | tail -n+2 | tr '+' ' ' | cut -d' ' -f 4 | tr '\n' ' '"
+#interval = "once"
+#signal = 4
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#888888"
+
+# k380 keyboard
+[[block]]
+block = "bluetooth"
+mac = "F4:73:35:6F:42:68"
+disconnected_format = ""
+format = " $icon K380 "
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+[[block]]
+block = "battery"
+#driver = ""
+device = "BAT1"
+interval = 30
+format = " $icon $percentage $time $power "
+full_format=" $icon FULL "
+charging_format=" $icon $percentage ⚡ $time "
+not_charging_format =" $icon no "
+missing_format =" $icon missing "
+
+[[block]]
+block = "time"
+interval = 5
+format = " $timestamp.datetime(f:'%a %m%d %R') "
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
