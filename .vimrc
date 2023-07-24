@@ -177,8 +177,8 @@ function s:CONFIG_vim_base() "{{{
         set cursorcolumn
         hi CursorColumn   guibg=black ctermbg=black
     else
-        set cursorcolumn
-        hi CursorColumn   guibg=black ctermbg=black
+        "set cursorcolumn
+        "hi CursorColumn   guibg=black ctermbg=black
     endif
     "hi CursorColumn cterm=reverse gui=reverse
     "hi CursorLine cterm=reverse gui=reverse
@@ -295,7 +295,8 @@ function s:CONFIG_vimplug() "{{{
     "base {{{
     "无架构依赖 , win linux 通用 , linux 最小使用
     Plug 'yianwillis/vimcdoc'
-    "Plug 'Yggdroot/indentLine'
+    Plug 'Yggdroot/indentLine'
+    "Plug 'preservim/vim-indent-guides'
     Plug 'junegunn/vim-easy-align'
     Plug 'inkarkat/vim-ingo-library' "mark 插件的依赖
     Plug 'inkarkat/vim-mark'
@@ -352,7 +353,13 @@ call <sid>CONFIG_vimplug()
 
 " plug config {{{
 function s:CONFIG_plugs_base() "{{{
+    " indentLine {{{
     let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+    "let g:indentLine_color_term = 239
+    "let g:indentLine_bgcolor_term = 202
+    "let g:indentLine_bgcolor_gui = '#FF5F00'
+    " }}}
+
     " clang format {{{
     let g:clang_format#detect_style_file=1
     "let g:clang_format#code_style='Microsoft'
@@ -578,6 +585,31 @@ function s:CONFIG_plugs_base() "{{{
     "    call lightline#colorscheme()
     "endfunction
     "}}}
+endfunction "}}}
+
+function s:CONFIG_plugs_cocconfig() "{{{
+    "" common.vim
+    "let g:coc_common = {
+    "            \   "coc.preferences.currentFunctionSymbolAutoUpdate": v:true,
+    "            \   "coc.source.ultisnips.priority": 10,
+    "            \   "coc.source.buffer.priority": 5,
+    "            \   "coc.source.word.priority": 1,
+    "            \ }
+
+    "" explorer.vim
+    "let g:coc_explorer = {
+    "            \   "explorer.icon.enableNerdfont": v:true,
+    "            \   "explorer.keyMappings": {
+    "            \     "<space>": "normal:j"
+    "            \   },
+    "            \ }
+
+    "let g:coc_user_config = extend(g:coc_common, g:coc_explorer)
+
+    let g:coc_user_config = {
+                \"inlayHint.enable": v:false
+                \}
+    "let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
 endfunction "}}}
 
 function s:CONFIG_plugs_ext() "{{{
@@ -1277,17 +1309,27 @@ endfunction "}}}
  "}}}
 
 function Msgbox(msg) "{{{
-	if !has("python3")
-		echo "FUNC no python3"
-		finish
-	endif
-	py3 import sys
-	exec printf("py3 sys.argv=[r\"%s\"]",a:msg)
+    if !has("python3")
+        echo "FUNC no python3"
+        finish
+    endif
+    py3 import sys
+    "py3 print(sys.argv)
+    exec printf("py3 sys.argv=[r\"%s\"]",a:msg)
+    py3 print(f"pymsg {sys.argv}")
 
-	py3 << trim EOF
-		import ctypes,sys
-		ctypes.windll.user32.MessageBoxA(0,sys.argv[0].encode("ascii"),"vim_debug_msg",0)
-	EOF
+    if s:is_win
+        py3 << trim EOF
+        #import ctypes,sys
+        #ctypes.windll.user32.MessageBoxA(0,sys.argv[0].encode("ascii"),"vim_debug_msg",0)
+        EOF
+    else
+        py3 << trim EOF
+        #import tkinter as tk
+        from tkinter import messagebox
+        messagebox.showwarning("info",sys.argv[0])
+        EOF
+    endif
 endfunction "}}}
 
 "winpos 显示当前设置
@@ -1684,6 +1726,7 @@ augroup END
 "
 call <sid>CONFIG_plugs_base() " not cover base set , call must before vim_base
 call <sid>CONFIG_vim_base()
+call <sid>CONFIG_plugs_cocconfig()
 call <sid>CONFIG_plugs_ext()
 call <sid>CONFIG_au_filetype()
 call <sid>CONFIG_macro()

@@ -97,7 +97,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle; resize set 800 1200; move position 30 px 400 px
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -183,11 +183,14 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    height 38
+    position top
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
     #status_command py3status
     separator_symbol ""
-    font pango:terminess nerd font mono, Material Icons 24
+    #height 24
+    #font pango:terminess nerd font mono, Material Icons 16
+    height 38
+    font pango:terminess nerd font mono, Material Icons bold 26
     colors {
         background #000000
         statusline #ffffff
@@ -200,7 +203,7 @@ bar {
         binding_mode       #2f343a #ffff00 #ff0000
     }
 }
-
+#bindsym $mod+q exec "i3-msg bar mode dock"
 
 #v4.20 new "include <pattern>"
 
@@ -218,6 +221,10 @@ bindsym $mod+minus exec "brightnessctl set 5%-"
 bindsym $mod+Up    exec "amixer set Master 10%+"
 bindsym $mod+Down  exec "amixer set Master 10%-"
 
+bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
+#bindsym $mod+shift+o exec --no-startup-id transset 1 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
+
+exec --no-startup-id xcompmgr -c
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
