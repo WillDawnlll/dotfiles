@@ -1,0 +1,4 @@
+# tar -xzvf ./pixelfun2-dracula-v6.tar.gz ~/.icon
+# cp ./.icons_default_index.theme ~/.icons/default/index.theme
+[icon theme] 
+Inherits=pixelfun2-dracula
