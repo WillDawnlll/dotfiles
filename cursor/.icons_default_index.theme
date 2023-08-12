@@ -1,4 +1,5 @@
-# tar -xzvf ./pixelfun2-dracula-v6.tar.gz ~/.icon
+# tar -xvf ./pixelfun2-dracula-v6.tar.gz -C ~/.icons
 # cp ./.icons_default_index.theme ~/.icons/default/index.theme
+# echo "Xcursor.size:96" >> ~/.Xresources;xrdb ~/.Xresources
 [icon theme] 
 Inherits=pixelfun2-dracula
