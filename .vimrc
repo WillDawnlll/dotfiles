@@ -260,7 +260,7 @@ function s:CONFIG_vim_base() "{{{
     set modeline
 endfunction "}}}
 
-
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
     ""temp {{{
