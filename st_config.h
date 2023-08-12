@@ -1,4 +1,4 @@
-// config.h in commit 211964d56ee00a7d46e251cbc150afb79138ae37
+// config.h in https://git.suckless.org/st/ commit 211964d56ee00a7d46e251cbc150afb79138ae37
 
 /* See LICENSE file for copyright and license details. */
 
