@@ -13,7 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:terminess nerd font mono 26
+font pango:terminess nerd font mono bold 26
+font pango:terminess nerd font mono bold 12
 #font pango:3270 nerd font bold 26
 #font pango:sarasa mono sc nerd 26
 
@@ -51,7 +52,8 @@ bindsym $mod+Return exec ~/st
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'sarasa mono sc nerd:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
+bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'terminess nerd font mono:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
+#bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'sarasa mono sc nerd:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -191,6 +193,8 @@ bar {
     #font pango:terminess nerd font mono, Material Icons 16
     height 38
     font pango:terminess nerd font mono, Material Icons bold 26
+    #height 30
+    #font pango:terminess nerd font mono, Material Icons bold 12
     colors {
         background #000000
         statusline #ffffff
@@ -228,4 +232,9 @@ exec --no-startup-id xcompmgr -c
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
-exec --no-startup-id feh --bg-fill ~/Pictures/bg.png
+exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
+#exec --no-startup-id bash /home/u1/barriers.sh
+#exec --no-startup-id xfce4-panel
+#exec --no-startup-id onboard
+
+#include /etc/sway/config.d/*

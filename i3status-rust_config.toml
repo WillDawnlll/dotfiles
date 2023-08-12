@@ -110,7 +110,7 @@ critical_mem = 90
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
 disconnected_format = ""
-format = " $icon EDIFIER "
+format = "$icon EDIFIER"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -121,7 +121,40 @@ format = " $icon EDIFIER "
 block = "bluetooth"
 mac = "9C:97:89:59:39:CF"
 disconnected_format = ""
-format = " $icon MI "
+format = "$icon MI"
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+# k380 keyboard
+[[block]]
+block = "bluetooth"
+mac = "F4:73:35:6F:42:68"
+disconnected_format = ""
+format = "$icon K380"
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+# MX Keys Mini
+[[block]]
+block = "bluetooth"
+mac = "D9:C2:C9:92:F9:84"
+disconnected_format = ""
+format = "$icon MX"
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+# Logi POP Mouse
+[[block]]
+block = "bluetooth"
+mac = "DE:E1:9A:F0:54:24"
+disconnected_format = ""
+format = "$icon POP"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -142,27 +175,37 @@ idle_bg = "#444444"
 #interval = "once"
 #signal = 4
 
+#monitor direction
+[[block]]
+block = "custom"
+format = " ✠"
+cycle = [
+    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate normal",
+    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate right",
+    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate inverted",
+    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate left"
+    #"sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+]
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#ff8800"
+[[block.click]]
+button = "right"
+action = "cycle"
+
 [[block]]
 block = "backlight"
+#mipad2 comment
 device = "intel_backlight"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#888888"
 
-# k380 keyboard
-[[block]]
-block = "bluetooth"
-mac = "F4:73:35:6F:42:68"
-disconnected_format = ""
-format = " $icon K380 "
-[block.battery_state]
-"0..20" = "critical"
-"21..70" = "warning"
-"71..100" = "good"
-
 [[block]]
 block = "battery"
 #driver = ""
+#mipad2 comment no BAT1
 device = "BAT1"
 interval = 30
 format = " $icon $percentage $time $power "
