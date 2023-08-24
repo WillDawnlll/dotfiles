@@ -26,7 +26,7 @@ net_vpn = "V2a"
 
 [[block]]
 block = "net"
-format = " ↓$speed_down ↑$speed_up "
+format = "↓$speed_down ↑$speed_up"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#aaaaaa"
@@ -34,15 +34,16 @@ idle_fg = "#aaaaaa"
 [[block]]
 block = "net"
 interval = 5
-format = " $icon {$signal_strength $ssid} $ip "
+format = "$icon {$ssid} $ip"
+#format = "$icon {$signal_strength $ssid} $ip"
 [block.theme_overrides]
 idle_fg = "#ffffff"
 
 [[block]]
 block = "service_status"
 service = "v2raya"
-active_format = "^icon_net_vpn "
-inactive_format = "^icon_net_vpn "
+active_format = "^icon_net_vpn"
+inactive_format = "^icon_net_vpn"
 [block.theme_overrides]
 idle_fg = "#00ff00"
 idle_bg = "#003333"
@@ -51,7 +52,7 @@ critical_bg = "#003333"
 
 [[block]]
 block = "cpu"
-format = " $icon $utilization $frequency.eng(hide_unit:true)"
+format = "$icon $utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
 idle_bg = "#444444"
 
@@ -71,8 +72,8 @@ block = "custom"
 #command = "printf '[%s %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
-    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
+    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 ]
 interval = "once"
 [block.theme_overrides]
@@ -85,8 +86,8 @@ action = "cycle"
 
 [[block]]
 block = "temperature"
-format = " $icon $max "
-format_alt = " $icon AVG:$average "
+format = "$icon $max"
+format_alt = "$icon ~$average"
 interval = 10
 chip = "*-isa-*"
 [block.theme_overrides]
@@ -100,8 +101,8 @@ idle_bg = "#444444"
 
 [[block]]
 block = "memory"
-format = " $icon $mem_used_percents.eng(w:1) "
-format_alt = " $icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
+format = "$icon $mem_used_percents.eng(w:1)"
+format_alt = "$icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2))"
 interval = 30
 warning_mem = 70
 critical_mem = 90
@@ -218,7 +219,7 @@ missing_format =" $icon missing "
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%a %m%d %R') "
+format = " $timestamp.datetime(f:'%a %m%d %R')"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#00ffff"
