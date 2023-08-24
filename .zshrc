@@ -44,7 +44,7 @@ if [ ! -f "$ANTIGEN" ]; then
 fi
 
 export PS1="%n@%m:%~%# "
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 source "$ANTIGEN"
 
 
@@ -73,7 +73,7 @@ LS_COLORS='no=00;37:fi=00:di=00;33:ln=04;36:pi=40;33:so=01;35:bd=40;33;01:'
 export LS_COLORS
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}  
 
-export PROMPT="%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# "
+export PROMPT="%(?.%F{cyan}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# "
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -107,6 +107,7 @@ alias pf='printf'
 alias px='proxychains4'
 alias sudo='sudo '
 alias es='es -highlight '
+alias pw='upower -i `upower -e | grep 'BAT'` '
 #need apt install manpages-zh
 manzh() {
     echo "in func manzh"
@@ -167,15 +168,8 @@ t1(){
     i= getstdin
     echo ${i}
 }
-scb(){
-    powershell.exe -nop -nol -c "scb"
-}
-gcb(){
-    powershell.exe -nop -nol -c "gcb -Format FileDropList"
-}
 
-setopt vi 
-setopt autocd autopushd pushdignoredups pushdminus
+setopt vi autocd autopushd pushdignoredups pushdminus
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
@@ -198,8 +192,8 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 #bindkey '^n' expand-or-complete
 #bindkey '^p' reverse-menu-complete
 bindkey '^r' history-incremental-search-backward
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^x^e" edit-command-line
+
+#for qt5 apps like : vlc
+export QT_DEVICE_PIXEL_RATIO=1
 
 . ~/z/z.sh || (echo "no ~/z/z.sh , clone https://github.com/rupa/z ";exit 1);
