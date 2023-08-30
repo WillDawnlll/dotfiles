@@ -52,6 +52,7 @@ critical_bg = "#003333"
 
 [[block]]
 block = "cpu"
+#interval = 2
 format = "$icon $utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
 idle_bg = "#444444"
@@ -67,13 +68,30 @@ idle_bg = "#444444"
 
 # cpupower switch
 # add to /etc/sudoers "username hostname = (root) NOPASSWD: /usr/bin/cpupower"
+
+#### [[block]]
+#### block = "custom"
+#### #command = "printf '[%s %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+#### format = "$text.pango-str()"
+#### cycle = [
+####     "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
+####     "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+#### ]
+#### interval = "once"
+#### [block.theme_overrides]
+#### idle_bg = "#444444"
+#### idle_fg = "#aaaaaa"
+#### [[block.click]]
+#### button = "right"
+#### action = "cycle"
+
 [[block]]
 block = "custom"
-#command = "printf '[%s %s]' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -g powersave   -u 1g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)",
-    "sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %.2s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+    "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
+    "sudo cpupower frequency-set -u 2g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
+    "sudo cpupower frequency-set -u 5g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f'",
 ]
 interval = "once"
 [block.theme_overrides]
@@ -83,6 +101,21 @@ idle_fg = "#aaaaaa"
 button = "right"
 action = "cycle"
 
+[[block]]
+block = "custom"
+format = "$text.pango-str()"
+cycle = [
+    #here printf char icon with color
+    "sudo cpupower frequency-set -g powersave 1> /dev/null; printf '❄️'",
+    "sudo cpupower frequency-set -g performance 1> /dev/null; printf '🔥'"
+]
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#444444"
+idle_fg = "#aaaaaa"
+[[block.click]]
+button = "right"
+action = "cycle"
 
 [[block]]
 block = "temperature"
@@ -218,8 +251,8 @@ missing_format =" $icon missing "
 
 [[block]]
 block = "time"
-interval = 5
-format = " $timestamp.datetime(f:'%a %m%d %R')"
+interval = 60
+format = " $timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#00ffff"
