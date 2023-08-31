@@ -73,7 +73,14 @@ LS_COLORS='no=00;37:fi=00:di=00;33:ln=04;36:pi=40;33:so=01;35:bd=40;33;01:'
 export LS_COLORS
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}  
 
-export PROMPT="%(?.%F{cyan}√.%F{red}?%?)%f %B%F{240}%1~%f%b %# "
+if [[ $(uname -o) == "Android" ]] ;then
+    MYIP=" "$(ifconfig 2>/dev/null| grep 'inet '| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{print $2}')
+else
+    MYIP=""
+fi
+#PS1="\[\033[01;31m\]\u@"$MYIP" \w $\[\033[00m\] ";
+
+export PROMPT="%(?.%F{cyan}√.%F{red}?%?)%f %B%F{240}%1~%f%b"$MYIP" %# "
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
