@@ -193,7 +193,7 @@ bar {
     #height 24
     #font pango:terminess nerd font mono, Material Icons 16
     height 38
-    font pango:terminess nerd font mono, Material Icons bold 26
+    font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 26
     #mipad2
     #height 30
     #font pango:terminess nerd font mono, Material Icons bold 12
