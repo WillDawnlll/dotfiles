@@ -482,6 +482,9 @@ function s:CONFIG_plugs_base() "{{{
     let g:sonokai_disable_italic_comment = 1
     colorscheme sonokai
 
+    " st-alpha opacity , only work in tmux ??
+    hi Normal guibg=NONE
+
     nnoremap <Leader>h :Hexmode<CR>
     "inoremap <Leader>h <Esc>:Hexmode<CR>
     vnoremap <Leader>h :<CU>Hexmode<CR>
@@ -616,9 +619,40 @@ function s:CONFIG_plugs_cocconfig() "{{{
     "let g:coc_user_config = extend(g:coc_common, g:coc_explorer)
 
     let g:coc_user_config = {
-                \"inlayHint.enable": v:false
+                \"inlayHint.enable": v:false,
+                \"rust-analyzer.updates.checkOnStartup": v:false
                 \}
     "let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
+    
+    " coc-rust-analyzer standalone signle rs file without cargo folder
+    " https://rust-analyzer.github.io/manual.html#non-cargo-based-projects
+    " touch rust-project.json in main.rs folder
+    " https://github.com/rust-lang/rust-analyzer/issues/6388
+    " {
+    "     "sysroot_src": "/home/<YOUR-USER>/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library",
+    "     "crates": [
+    "         {
+    "             "root_module": "main.rs",
+    "             "edition": "2018",
+    "             "deps": []
+    "         }
+    "     ]
+    " }
+    " coc config json rust-analyzer.linkedProjects with rus-project.json
+    " let g:coc_user_config = {
+    "             \"rust-analyzer.linkedProjects": [
+    "             \{
+    "             \    "sysroot_src": "/home/u1/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library",
+    "             \    "crates": [
+    "             \        {
+    "             \            "root_module": "main.rs",
+    "             \            "edition": "2021",
+    "             \            "deps": [],
+    "             \        },
+    "             \    ]
+    "             \}
+    "             \]
+    "             \}
 endfunction "}}}
 
 function s:CONFIG_plugs_ext() "{{{

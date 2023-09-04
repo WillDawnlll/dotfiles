@@ -45,7 +45,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/dotfiles/st-alpha-8
+bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.8
 #bindsym $mod+Return exec ~/st tmux
 #bindsym $mod+Return exec i3-sensible-terminal
 
@@ -217,7 +217,7 @@ bar {
 client.focused          #00ffff #00ffff #000000 #ffffff   #00ffff
 client.unfocused        #333333 #222222 #cccccc #292d2e   #444444
 client.background       #00ffff
-#gaps inner 5px
+gaps inner 20px
 #gaps outer 5px
 for_window [class=".*"] border pixel 2
 #exec --no-startup-id compton -b
