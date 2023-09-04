@@ -1,4 +1,5 @@
 // config.h in https://git.suckless.org/st/ commit 211964d56ee00a7d46e251cbc150afb79138ae37
+// (line 100) bg opacity https://st.suckless.org/patches/alpha/st-alpha-20220206-0.8.5.diff
 
 /* See LICENSE file for copyright and license details. */
 
@@ -95,6 +96,9 @@ char *termname = "st-256color";
  *	stty tabs
  */
 unsigned int tabspaces = 8;
+
+/* bg opacity */
+float alpha = 0.2;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {

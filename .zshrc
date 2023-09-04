@@ -53,11 +53,12 @@ export COLORTERM=truecolor
 
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-antigen bundle zpm-zsh/material-colors
+#antigen bundle zpm-zsh/material-colors
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zdharma-continuum/fast-syntax-highlighting
+# fast-theme q-jmnemonic
 antigen bundle woefe/vi-mode.zsh
-antigen bundle zpm-zsh/ls
+#antigen bundle zpm-zsh/ls
 #antigen bundle softmoth/zsh-vim-mode
 
 antigen apply
@@ -80,7 +81,7 @@ else
 fi
 #PS1="\[\033[01;31m\]\u@"$MYIP" \w $\[\033[00m\] ";
 
-export PROMPT="%(?.%F{cyan}√.%F{red}?%?)%f %B%F{240}%1~%f%b"$MYIP" %# "
+export PROMPT="%(?.%F{cyan}√.%F{red}?%?)%f %F{240}%1~%f%b"$MYIP" %# "
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -94,9 +95,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-#alias ll='ls -alF'
-#alias la='ls -A'
-#alias l='ls -CF'
+#alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 alias d='dirs -v'
 alias 0='cd -0'
 alias 1='cd -1'
@@ -204,3 +206,8 @@ bindkey '^r' history-incremental-search-backward
 export QT_DEVICE_PIXEL_RATIO=1
 
 . ~/z/z.sh || (echo "no ~/z/z.sh , clone https://github.com/rupa/z ";exit 1);
+
+#term="$(cat /proc/$PPID/comm)"
+#if [[ $term = "st" ]]; then
+#    transset 0.8 --id "$WINDOWID" >/dev/null
+#fi

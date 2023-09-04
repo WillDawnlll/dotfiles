@@ -52,10 +52,12 @@ critical_bg = "#003333"
 
 [[block]]
 block = "cpu"
-#interval = 2
-format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
+#interval = 10
+format = "$barchart $frequency.eng(w:3,hide_unit:true)~"
+format_alt = "{$icon}$utilization $max_frequency.eng(w:3,hide_unit:true)"
+#format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
-idle_bg = "#444444"
+idle_bg = "#000000"
 
 # cpupower monitor max frequency governor
 #[[block]]

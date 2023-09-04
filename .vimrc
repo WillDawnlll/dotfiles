@@ -154,7 +154,7 @@ function s:CONFIG_vim_base() "{{{
     "set listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+,space:·
     "set lcs+=space:·
     "set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
-    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·
+    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:_
     set list 
     "set invlist
 
@@ -270,6 +270,7 @@ endif
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
     ""temp {{{
+    "Plug 'markmap/coc-markmap'
     Plug 'github/copilot.vim',
     Plug 'jeetsukumaran/vim-filebeagle'
     "Plug 'preservim/nerdtree'
@@ -474,8 +475,10 @@ function s:CONFIG_plugs_base() "{{{
     " 有时置位 'termguicolors' 还不够，还需要显式设置 |t_8f| 和 |t_8b| 选项。这些选
 
     " The configuration options should be placed before `colorscheme sonokai`.
-    let g:sonokai_style = 'maia'
-    let g:sonokai_enable_italic = 1
+    let g:sonokai_style = 'atlantis'
+    "let g:sonokai_style = 'andromeda'
+    "let g:sonokai_style = 'maia'
+    let g:sonokai_enable_italic = 0
     let g:sonokai_disable_italic_comment = 1
     colorscheme sonokai
 
