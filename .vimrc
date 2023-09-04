@@ -484,6 +484,7 @@ function s:CONFIG_plugs_base() "{{{
 
     " st-alpha opacity , only work in tmux ??
     hi Normal guibg=NONE
+    hi EndOfBuffer guibg=NONE
 
     nnoremap <Leader>h :Hexmode<CR>
     "inoremap <Leader>h <Esc>:Hexmode<CR>
