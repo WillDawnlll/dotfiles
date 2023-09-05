@@ -149,8 +149,8 @@ function s:CONFIG_vim_base() "{{{
     " 设置显示不可见字符
     " NonText" 高亮会用于 "eol"、"extends" 和 "precedes"
     " "SpecialKey" 用于 "nbsp","space"、"tab" 和 "trail"
-    "hi SpecialKey  gui=reverse
-    hi NonText gui=reverse
+    hi SpecialKey  gui=reverse guifg=#333333
+    hi NonText gui=reverse guifg=#333333
     "set listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+,space:·
     "set lcs+=space:·
     "set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
@@ -172,7 +172,7 @@ function s:CONFIG_vim_base() "{{{
     "
     set cursorline
     hi Cursor  cterm=reverse gui=reverse
-    hi CursorLine     guibg=black ctermbg=black
+    hi CursorLine     guibg=#333333 ctermbg=black
     if s:is_win
         set cursorcolumn
         hi CursorColumn   guibg=black ctermbg=black
