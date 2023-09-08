@@ -182,7 +182,11 @@ function s:CONFIG_vim_base() "{{{
     endif
     "hi CursorColumn cterm=reverse gui=reverse
     "hi CursorLine cterm=reverse gui=reverse
-    "
+
+    " default cterm=underline or undercurl ctermul guisp
+    hi ErrorText guifg=black guibg=red
+    "hi CocErrorHighlight links to ErrorText
+
     "tab
     "'guitabtooltip' 'gtt'	
     "Setting 'guitablabel'	
@@ -620,6 +624,7 @@ function s:CONFIG_plugs_cocconfig() "{{{
     "let g:coc_user_config = extend(g:coc_common, g:coc_explorer)
 
     let g:coc_user_config = {
+                \"diagnostic.checkCurrentLine": v:true,
                 \"inlayHint.enable": v:false,
                 \"rust-analyzer.updates.checkOnStartup": v:false
                 \}
