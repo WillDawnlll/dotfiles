@@ -21,7 +21,8 @@ icons = "material-nf"
 net_vpn = "V2a"
 #bat = ["|E|", "|_|", "|=|", "|F|"]
 #bat_charging = "|^| "
-
+cpu_boost_on = ""
+cpu_boost_off = ""
 
 ######################
 #block
@@ -65,7 +66,7 @@ critical_bg = "#003333"
 [[block]]
 block = "cpu"
 #interval = 10
-format = "$barchart $frequency.eng(w:3,hide_unit:true)~{$boost|}"
+format = "$barchart {$boost|}$frequency.eng(w:3,hide_unit:true)~"
 format_alt = "{$icon}$utilization $max_frequency.eng(w:3,hide_unit:true)"
 #format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
