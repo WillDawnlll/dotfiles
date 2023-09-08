@@ -1,5 +1,7 @@
 # https://github.com/greshake/i3status-rust
 icons_format = "{icon}"
+#invert_scrolling =true
+error_format="???"
 
 [theme]
 theme = "dracula"
@@ -23,6 +25,16 @@ net_vpn = "V2a"
 
 ######################
 #block
+
+[[block]]
+block = "focused_window"
+[block.format]
+full = "$title.str    |"
+short = "$title.str(max_w:10)    |"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+
 
 [[block]]
 block = "net"
@@ -53,7 +65,7 @@ critical_bg = "#003333"
 [[block]]
 block = "cpu"
 #interval = 10
-format = "$barchart $frequency.eng(w:3,hide_unit:true)~"
+format = "$barchart $frequency.eng(w:3,hide_unit:true)~{$boost|}"
 format_alt = "{$icon}$utilization $max_frequency.eng(w:3,hide_unit:true)"
 #format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
@@ -110,6 +122,7 @@ cycle = [
     #here printf char icon with color
     "sudo cpupower frequency-set -g powersave 1> /dev/null; printf '❄️'",
     "sudo cpupower frequency-set -g performance 1> /dev/null; printf '🔥'"
+    # TODO : change to turbo boost switch , NOT cpu frequency
 ]
 interval = "once"
 [block.theme_overrides]
