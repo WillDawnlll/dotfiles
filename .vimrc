@@ -184,7 +184,7 @@ function s:CONFIG_vim_base() "{{{
     "hi CursorLine cterm=reverse gui=reverse
 
     " default cterm=underline or undercurl ctermul guisp
-    hi ErrorText guifg=black guibg=red
+    hi ErrorText guifg=yellow guibg=red
     "hi CocErrorHighlight links to ErrorText
 
     "tab
@@ -623,9 +623,12 @@ function s:CONFIG_plugs_cocconfig() "{{{
 
     "let g:coc_user_config = extend(g:coc_common, g:coc_explorer)
 
+    " TODO shfmt
     let g:coc_user_config = {
+                \"coc.preferences.formatOnSaveFiletypes": ["rust"],
                 \"diagnostic.checkCurrentLine": v:true,
                 \"inlayHint.enable": v:false,
+                \"python.jediEnabled": v:true,
                 \"rust-analyzer.updates.checkOnStartup": v:false
                 \}
     "let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
