@@ -100,7 +100,12 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle; resize set 800 1200; move position 30 px 400 px
+#bindsym $mod+Shift+space floating toggle; resize set 800 1200; move position 30 px 400 px
+bindsym $mod+Shift+space floating toggle; resize set 1300 800; move position 1580 px 1000 px
+#right bottom
+bindsym $mod+Shift+i resize set 1300 800; move position 1580 px 1000 px
+#right top
+bindsym $mod+Shift+o resize set 1300 800; move position 1580 px 50 px
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -217,7 +222,7 @@ bar {
 client.focused          #00ffff #00ffff #000000 #ffffff   #00ffff
 client.unfocused        #333333 #222222 #cccccc #292d2e   #444444
 client.background       #00ffff
-gaps inner 20px
+gaps inner 14px
 #gaps outer 5px
 for_window [class=".*"] border pixel 2
 #exec --no-startup-id compton -b
@@ -243,5 +248,7 @@ exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
 
 ##git clone https://github.com/Hippo0o/i3-master-layout
 bindsym $mod+m exec --no-startup-id $HOME/.i3/i3-swap-master.py
+
+bindsym $mod+Shift+s sticky toggle
 
 exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
