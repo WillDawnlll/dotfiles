@@ -262,6 +262,10 @@ function s:CONFIG_vim_base() "{{{
     set  synmaxcol    =200
 
     set modeline
+    "set cole=0
+
+    " re map show full path
+    nnoremap <c-g> 1
 endfunction "}}}
 
 
@@ -273,7 +277,7 @@ endif
 
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
-    ""temp {{{
+    "temp {{{
     "Plug 'markmap/coc-markmap'
     Plug 'github/copilot.vim',
     Plug 'jeetsukumaran/vim-filebeagle'
@@ -306,7 +310,7 @@ function s:CONFIG_vimplug() "{{{
     "base {{{
     "无架构依赖 , win linux 通用 , linux 最小使用
     Plug 'yianwillis/vimcdoc'
-    Plug 'Yggdroot/indentLine'
+    Plug 'Yggdroot/indentLine' " mess up markdown set cole=0
     "Plug 'preservim/vim-indent-guides'
     Plug 'junegunn/vim-easy-align'
     Plug 'inkarkat/vim-ingo-library' "mark 插件的依赖
@@ -369,6 +373,11 @@ function s:CONFIG_plugs_base() "{{{
     "let g:indentLine_color_term = 239
     "let g:indentLine_bgcolor_term = 202
     "let g:indentLine_bgcolor_gui = '#FF5F00'
+    "markdown set cole=0 not work
+    let g:indentLine_setConceal = 0
+    "let g:vim_json_conceal=0
+    "let g:markdown_syntax_conceal=0
+    "
     " }}}
 
     " clang format {{{
@@ -569,6 +578,7 @@ function s:CONFIG_plugs_base() "{{{
                 \            'vista_near': 'error' 
                 \        }, 
                 \     }
+    set noshowmode
     function Test_1()
         return "Test_1"
     endfunction
@@ -921,7 +931,7 @@ endfunction "}}}
 
 function s:CONFIG_au_filetype() "{{{
     " 补全path设置
-    autocmd FileType markdown setlocal invlist lcs-=trail foldmethod=marker
+    autocmd FileType markdown setlocal lcs-=trail foldmethod=marker
     "autocmd FileType markdown syn match mt0 '^# .*' containedin=ALL contained |hi mt0 guibg=gray90 guifg=gray30
     "autocmd FileType markdown syn match mt1 '^## .*' containedin=ALL contained |hi mt1 guibg=gray90 guifg=gray30
     "autocmd FileType markdown syn match mt2 '^### .*' containedin=ALL contained |hi mt2 guibg=gray90 guifg=gray30
@@ -1027,7 +1037,7 @@ function s:CONFIG_map() "{{{
     " 复制引号中内容到剪贴板
     nmap <M-'> 0f""*yi"
     " 复制/P(开始到行末到剪贴板, 并末尾加逗号
-    nmap <M-p> A,<esc>0/P("<CR><C-v>f,"*y
+    "nmap <M-p> A,<esc>0/P("<CR><C-v>f,"*y
     nmap <M-s> 0/S("<CR><C-v>$h"*y
     " 当前光标开始到行末到剪贴板
     nmap <Leader>y4 <C-v>$"*y
@@ -1070,6 +1080,9 @@ function s:CONFIG_map() "{{{
     xnoremap >  >gv
 
     nnoremap <m-i> :setl invlist<cr>
+
+    " fix this virmc too long syntax error
+    nnoremap <c-r> :syntax sync maxlines=3 minlines=3<cr>
     "}}}
 endfunction "}}}
 
@@ -1188,6 +1201,7 @@ function s:CONFIG_win() "{{{
     autocmd FileType c,cpp,cs nmap <f1> :exe printf("python visual_studio.dte.put_file(%s,%d,%d)",  '"'.escape(expand("%:p"), '\').'"', line("."), col(".")) <cr>
     autocmd FileType python nmap <f1> :exe printf("AR %s --line %d --column %d %s",pycharm_path , line("."), col("."),  '"'.escape(expand("%:p"), '\').'"') <cr>
     "autocmd FileType vim nnoremap <silent> <f1> :call <SID>show_documentation()<CR>
+    autocmd BufEnter * sy sync maxlines=3 minlines=3
     "nmap <f3> :exe printf("python visual_studio.dte.build_solution(%s)",'"'.$TEMP . '\vs_output.txt'.'"'  )<cr>
     "import win32api
     "e_msg = win32api.FormatMessage(-2147352567)
@@ -1766,6 +1780,16 @@ augroup MyQuickfixPreview
   au!
   au FileType qf noremap <silent><buffer> p :call quickui#tools#preview_quickfix()<cr>
 augroup END
+
+" pandoc markdown to html, firefox open it
+function Pmd() "{{{
+    "let tmpfile=tempname()
+    sil exe "!pandoc -f markdown -o " .. expand("%") .. ".html" .. " % &"
+    sil exe "!firefox " .. expand("%") .. ".html"
+    redraw!
+endfunction "}}}
+map <c-m> :call Pmd()<cr>
+
 " }}}
 
 
