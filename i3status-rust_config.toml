@@ -160,6 +160,7 @@ idle_bg = "#444444"
 
 # battery: /etc/bluetooth/main.conf [General] "Experimental = true" , bluetoothclt info
 # https://wiki.archlinux.org/title/bluetooth#Enabling_experimental_features
+# https://askubuntu.com/questions/1117563/check-bluetooth-headphones-battery-status-in-linux
 # EDIFIER TWS NB3
 [[block]]
 block = "bluetooth"
