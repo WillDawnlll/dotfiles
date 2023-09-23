@@ -159,7 +159,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit' -f 'pango:sarasa mono sc nerd 22'" 
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit' -f 'pango:sarasa mono sc nerd 22'" 
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'exit sway?' -B 'exit' 'swaymsg exit' -f 'pango:sarasa mono sc nerd 22'" 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -192,6 +193,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     position top
+    gaps 14 14
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
     #status_command py3status
     separator_symbol ""
@@ -203,7 +205,7 @@ bar {
     #height 30
     #font pango:terminess nerd font mono, Material Icons bold 12
     colors {
-        background #000000
+        background #00000088
         statusline #ffffff
         separator #ffffff
 
@@ -253,9 +255,14 @@ bindsym $mod+Shift+s sticky toggle
 
 exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
+
+################################################################################
+
 #sway config
-output eDP-1 scale 1 bg ~/dotfiles/bg.png fill
+#default /etc/sway/config
+
 #stretch", "fill", "fit", "center", "tile")
+output eDP-1 scale 1 bg ~/dotfiles/bg.png fill
 #output eDP-1 {
 #   mode 2880x1800@90.000Hz
 #   mode 1920x1200@90.000Hz
@@ -265,6 +272,13 @@ seat seat0 xcursor_theme pixelfun2-dracula 96
 #set $opacity 0.9
 #for_window [class=".*"] opacity $opacity
 #for_window [app_id=".*"] opacity $opacity
+
+#https://github.com/swaywm/sway/wiki#keyboard-layout
+# or input <identifier>
+input "type:keyboard" {
+    xkb_layout us
+    xkb_options caps:swapescape
+}
 
 #pop
 input "1133:50504:Logitech_USB_Receiver_Consumer_Control" {

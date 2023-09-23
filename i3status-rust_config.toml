@@ -10,7 +10,8 @@ theme = "dracula"
 separator = ""
 #separator = ""
 #separator_fg = "#ffffff"
-idle_bg = "#003333"
+idle_bg = "#00333388"
+#separator_bg = "#00000088"
 
 [icons]
 #icons = "material"
@@ -33,7 +34,7 @@ block = "focused_window"
 full = "$title.str    |"
 short = "$title.str(max_w:10)    |"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#00ffff"
 
 
@@ -41,7 +42,7 @@ idle_fg = "#00ffff"
 block = "net"
 format = "↓$speed_down ↑$speed_up"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#aaaaaa"
 
 [[block]]
@@ -59,9 +60,9 @@ active_format = "^icon_net_vpn"
 inactive_format = "^icon_net_vpn"
 [block.theme_overrides]
 idle_fg = "#00ff00"
-idle_bg = "#003333"
+idle_bg = "#00333388"
 critical_fg = "#777777"
-critical_bg = "#003333"
+critical_bg = "#00333388"
 
 [[block]]
 block = "cpu"
@@ -70,7 +71,7 @@ format = "$barchart {$boost|}$frequency.eng(w:3,hide_unit:true)~"
 format_alt = "{$icon}$utilization $max_frequency.eng(w:3,hide_unit:true)"
 #format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 
 # cpupower monitor max frequency governor
 #[[block]]
@@ -110,7 +111,7 @@ cycle = [
 ]
 interval = "once"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#aaaaaa"
 [[block.click]]
 button = "right"
@@ -127,7 +128,7 @@ cycle = [
 ]
 interval = "once"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#aaaaaa"
 [[block.click]]
 button = "right"
@@ -140,7 +141,7 @@ format_alt = "{$icon}~$average"
 interval = 10
 chip = "*-isa-*"
 [block.theme_overrides]
-idle_bg = "#444444"
+idle_bg = "#44444488"
 
 # sudo need user passwd
 #[[block]]
@@ -156,7 +157,7 @@ interval = 30
 warning_mem = 70
 critical_mem = 90
 [block.theme_overrides]
-idle_bg = "#444444"
+idle_bg = "#44444488"
 
 # battery: /etc/bluetooth/main.conf [General] "Experimental = true" , bluetoothclt info
 # https://wiki.archlinux.org/title/bluetooth#Enabling_experimental_features
@@ -222,7 +223,7 @@ block = "sound"
 button = "left"
 cmd = "pavucontrol"
 [block.theme_overrides]
-idle_bg = "#444444"
+idle_bg = "#44444488"
 
 # monitor
 #[[block]]
@@ -244,7 +245,7 @@ cycle = [
 ]
 interval = "once"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#ff8800"
 [[block.click]]
 button = "right"
@@ -255,7 +256,7 @@ block = "backlight"
 #mipad2 comment
 device = "intel_backlight"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#888888"
 
 [[block]]
@@ -275,7 +276,7 @@ block = "time"
 interval = 60
 format = " $timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#00ffff"
 
 # keyboard CAPS lock status
@@ -286,7 +287,7 @@ command = ''' echo "{\"state\":\"$($(xset -q |rg -o 'Caps Lock:.......'|rg -ioq 
 json = true
 interval = 1
 [block.theme_overrides]
-idle_bg = "#000000"
+idle_bg = "#00000088"
 idle_fg = "#aaaaaa"
 critical_fg = "#ff00ff"
-critical_bg = "#000000"
+critical_bg = "#00000088"
