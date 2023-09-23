@@ -158,12 +158,14 @@ critical_mem = 90
 [block.theme_overrides]
 idle_bg = "#444444"
 
+# battery: /etc/bluetooth/main.conf [General] "Experimental = true" , bluetoothclt info
+# https://wiki.archlinux.org/title/bluetooth#Enabling_experimental_features
 # EDIFIER TWS NB3
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
 disconnected_format = ""
-format = "$icon EDIFIER"
+format = "$icon EDIFIER {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -174,7 +176,7 @@ format = "$icon EDIFIER"
 block = "bluetooth"
 mac = "9C:97:89:59:39:CF"
 disconnected_format = ""
-format = "$icon MI"
+format = "$icon MI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -185,7 +187,7 @@ format = "$icon MI"
 block = "bluetooth"
 mac = "F4:73:35:6F:42:68"
 disconnected_format = ""
-format = "$icon K380"
+format = "$icon K380 {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -196,7 +198,7 @@ format = "$icon K380"
 block = "bluetooth"
 mac = "D9:C2:C9:92:F9:84"
 disconnected_format = ""
-format = "$icon MX"
+format = "$icon MX {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
