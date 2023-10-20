@@ -8,7 +8,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "sarasa mono sc nerd:pixelsize=30:antialias=true:autohint=true";
+static char *font = "sarasa term sc nerd:pixelsize=30:antialias=true:autohint=true";
+//static char *font = "sarasa mono sc nerd:pixelsize=30:antialias=true:autohint=true";
 //static char *font = "Liberation Mono:pixelsize=40:antialias=true:autohint=true";
 static int borderpx = 2;
 
