@@ -634,6 +634,7 @@ function s:CONFIG_plugs_cocconfig() "{{{
     "let g:coc_user_config = extend(g:coc_common, g:coc_explorer)
 
     " TODO shfmt
+                "\"coc.preferences.hoverTarget": "float",
     let g:coc_user_config = {
                 \"coc.preferences.formatOnSaveFiletypes": ["rust"],
                 \"diagnostic.checkCurrentLine": v:true,
@@ -1082,8 +1083,121 @@ function s:CONFIG_map() "{{{
     nnoremap <m-i> :setl invlist<cr>
 
     " fix this virmc too long syntax error
-    nnoremap <c-r> :syntax sync maxlines=3 minlines=3<cr>
+    nnoremap <c-s> :syntax sync maxlines=3 minlines=3<cr>
     "}}}
+
+    " cscope map
+    " modify from https://cscope.sourceforge.net/cscope_maps.vim
+    " {{{
+
+    " linux kernel source cscope db generate
+    " modify from https://cscope.sourceforge.net/large_projects.html
+    "
+    " LNX=/home/u1/code/linux/510/linux
+    " cd / 	
+    " find  $LNX                                                                \
+    "     -path "$LNX/arch/*" ! -path "$LNX/arch/i386*" -prune -o               \
+    "     -path "$LNX/include/asm-*" ! -path "$LNX/include/asm-i386*" -prune -o \
+    "     -path "$LNX/tmp*" -prune -o                                           \
+    "     -path "$LNX/Documentation*" -prune -o                                 \
+    "     -path "$LNX/scripts*" -prune -o                                       \
+    "     -path "$LNX/drivers*" -prune -o                                       \
+    "     -name "*.[chxsS]" -print >/home/u1/code/linux/510/cs/cscope.files
+    function Lcs()
+        let lnx="/home/u1/code/linux/510"
+        let lnxsrc=lnx.."/linux"
+        let lnxdb=lnx.."/cs/cscope.files"
+        let csfind = '!LNX='..lnx..';cd /; find $LNX
+                    \ -path "$LNX/arch/*" ! -path "$LNX/arch/i386*" -prune -o
+                    \ -path "$LNX/include/asm-*" ! -path "$LNX/include/asm-i386*" -prune -o
+                    \ -path "$LNX/tmp*" -prune -o
+                    \ -path "$LNX/Documentation*" -prune -o
+                    \ -path "$LNX/scripts*" -prune -o
+                    \ -path "$LNX/drivers*" -prune -o
+                    \ -name "*.[chxsS]" -print >'..lnxdb
+        let cscmd = '!cd '..lnx..'/cs;cscope -q -k -b'
+        echo csfind
+        echo cscmd
+        exe csfind
+        exe cscmd
+        exe 'cs add '..lnx..'/cs'
+    endfunction
+
+    " This tests to see if vim was configured with the '--enable-cscope' option
+    " when it was compiled.  If it wasn't, time to recompile vim... 
+    if has("cscope")
+        " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+        set cscopetag
+        " check cscope for definition of a symbol before checking ctags: set to 1
+        " if you want the reverse search order.
+        set csto=0
+        " add any cscope database in current directory
+        if filereadable("cscope.out")
+            cs add cscope.out  
+        " else add the database pointed to by environment variable 
+        elseif $CSCOPE_DB != ""
+            cs add $CSCOPE_DB
+        endif
+
+        " show msg when any other cscope db added
+        set cscopeverbose  
+        "   's'   symbol: find all references to the token under cursor
+        "   'g'   global: find global definition(s) of the token under cursor
+        "   'c'   calls:  find all calls to the function name under cursor
+        "   't'   text:   find all instances of the text under cursor
+        "   'e'   egrep:  egrep search for the word under cursor
+        "   'f'   file:   open the filename under cursor
+        "   'i'   includes: find files that include the filename under cursor
+        "   'd'   called: find functions that function under cursor calls
+        "nmap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
+        "nmap <leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
+        "nmap <leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
+        "nmap <leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
+        "nmap <leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
+        "nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
+        "nmap <leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+        "nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>	
+
+        "nmap <leader>ss :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+        "nmap <leader>sg :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+        "nmap <leader>sc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+        "nmap <leader>st :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+        "nmap <leader>se :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+        "nmap <leader>sf :vert scs find f <C-R>=expand("<cfile>")<CR><CR>	
+        "nmap <leader>si :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
+        "nmap <leader>sd :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+        """"""""""""" key map timeouts
+        "
+        " By default Vim will only wait 1 second for each keystroke in a mapping.
+        " You may find that too short with the above typemaps.  If so, you should
+        " either turn off mapping timeouts via 'notimeout'.
+        "
+        "set notimeout 
+        "
+        " Or, you can keep timeouts, by uncommenting the timeoutlen line below,
+        " with your own personal favorite value (in milliseconds):
+        "
+        "set timeoutlen=4000
+        "
+        " Either way, since mapping timeout settings by default also set the
+        " timeouts for multicharacter 'keys codes' (like <F1>), you should also
+        " set ttimeout and ttimeoutlen: otherwise, you will experience strange
+        " delays as vim waits for a keystroke after you hit ESC (it will be
+        " waiting to see if the ESC is actually part of a key code like <F1>).
+        "
+        "set ttimeout 
+        "
+        " personally, I find a tenth of a second to work well for key code
+        " timeouts. If you experience problems and have a slow terminal or network
+        " connection, set it higher.  If you don't set ttimeoutlen, the value for
+        " timeoutlent (default: 1000 = 1 second, which is sluggish) is used.
+        "
+        "set ttimeoutlen=100
+
+    endif
+    " }}}
 endfunction "}}}
 
 function s:CONFIG_cmd() "{{{
@@ -1177,6 +1291,13 @@ function s:CONFIG_lsp() "{{{
     nmap <leader>f  <Plug>(coc-format)
 
     command Cs CocCommand clangd.switchSourceHeader
+
+    nnoremap <silent><nowait><expr> <C-J> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-F>"
+    nnoremap <silent><nowait><expr> <C-K> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-B>"
+    inoremap <silent><nowait><expr> <C-J> coc#float#has_scroll() ? "\<C-R>=coc#float#scroll(1)\<CR>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-K> coc#float#has_scroll() ? "\<C-R>=coc#float#scroll(0)\<CR>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-J> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-F>"
+    vnoremap <silent><nowait><expr> <C-K> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-B>"
 endfunction "}}}
 
 function s:CONFIG_win() "{{{
