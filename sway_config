@@ -159,8 +159,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3?' -B 'exit' 'i3-msg exit' -f 'pango:sarasa mono sc nerd 22'" 
-#bindsym $mod+Shift+e exec "swaynag -t warning -m 'exit sway?' -B 'exit' 'swaymsg exit' -f 'pango:sarasa mono sc nerd 22'" 
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit' -f 'pango:sarasa mono sc nerd 22'" 
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'exit sway?' -B 'exit' 'swaymsg exit' -f 'pango:sarasa mono sc nerd 22'" 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -193,7 +193,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     position top
-    #gaps 14 14
+    gaps 14 14
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
     #status_command py3status
     separator_symbol ""
@@ -237,16 +237,14 @@ bindsym $mod+Down  exec "amixer set Master 10%-"
 bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
 #bindsym $mod+shift+o exec --no-startup-id transset 1 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
 
-exec --no-startup-id setxkbmap -option caps:swapescape
-exec --no-startup-id xcompmgr -c
+#exec --no-startup-id xcompmgr -c
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
-exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
+#exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
 #exec --no-startup-id bash /home/u1/barriers.sh
 #exec --no-startup-id xfce4-panel
 #exec --no-startup-id onboard
-exec --no-startup-id solaar
 
 #include /etc/sway/config.d/*
 
@@ -258,52 +256,52 @@ bindsym $mod+Shift+s sticky toggle
 exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
 
-# ################################################################################
-# 
-# #sway config
-# #default /etc/sway/config
-# 
-# #stretch", "fill", "fit", "center", "tile")
-# output eDP-1 scale 1 bg ~/dotfiles/bg.png fill
-# #output eDP-1 {
-# #   mode 2880x1800@90.000Hz
-# #   mode 1920x1200@90.000Hz
-# #   mode 1920x1080@90.000Hz
-# #}
-# seat seat0 xcursor_theme pixelfun2-dracula 96
-# #set $opacity 0.9
-# #for_window [class=".*"] opacity $opacity
-# #for_window [app_id=".*"] opacity $opacity
-# 
-# #https://github.com/swaywm/sway/wiki#keyboard-layout
-# # or input <identifier>
-# input "type:keyboard" {
-#     xkb_layout us
-#     xkb_options caps:swapescape
-# }
-# 
-# #pop
-# input "1133:50504:Logitech_USB_Receiver_Consumer_Control" {
-#     pointer_accel 1
-# }
-# input "1133:50504:Logitech_USB_Receiver_Mouse" {
-#     pointer_accel 1
-# }
-# input "1267:12668:MSFT0001:00_04F3:317C_Touchpad" {
-#     tap enabled
-#     natural_scroll enabled
-#     pointer_accel 1
-# }
-# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-# default_border none
-# default_floating_border normal
-# 
-# set $gnome-schema org.gnome.desktop.interface
-# 
-# exec_always {
-#     gsettings set $gnome-schema gtk-theme 'Breeze-Dark'
-#     gsettings set $gnome-schema icon-theme 'Breeze-Dark'
-#     gsettings set $gnome-schema cursor-theme 'pixelfun2-dracula'
-#     gsettings set $gnome-schema cursor-size 96
-#     gsettings set $gnome-schema font-name 'sarasa mono sc nerd 18'
-# }
+################################################################################
+
+#sway config
+#default /etc/sway/config
+
+#stretch", "fill", "fit", "center", "tile")
+output eDP-1 scale 1 bg ~/dotfiles/bg.png fill
+#output eDP-1 {
+#   mode 2880x1800@90.000Hz
+#   mode 1920x1200@90.000Hz
+#   mode 1920x1080@90.000Hz
+#}
+seat seat0 xcursor_theme pixelfun2-dracula 96
+#set $opacity 0.9
+#for_window [class=".*"] opacity $opacity
+#for_window [app_id=".*"] opacity $opacity
+
+#https://github.com/swaywm/sway/wiki#keyboard-layout
+# or input <identifier>
+input "type:keyboard" {
+    xkb_layout us
+    xkb_options caps:swapescape
+}
+
+#pop
+input "1133:50504:Logitech_USB_Receiver_Consumer_Control" {
+    pointer_accel 1
+}
+input "1133:50504:Logitech_USB_Receiver_Mouse" {
+    pointer_accel 1
+}
+input "1267:12668:MSFT0001:00_04F3:317C_Touchpad" {
+    tap enabled
+    natural_scroll enabled
+    pointer_accel 1
+}
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+default_border none
+default_floating_border normal
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Breeze-Dark'
+    gsettings set $gnome-schema icon-theme 'Breeze-Dark'
+    gsettings set $gnome-schema cursor-theme 'pixelfun2-dracula'
+    gsettings set $gnome-schema cursor-size 96
+    gsettings set $gnome-schema font-name 'sarasa mono sc nerd 18'
+}
