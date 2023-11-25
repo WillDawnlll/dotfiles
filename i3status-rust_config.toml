@@ -213,7 +213,7 @@ format = "$icon MX {$battery_icon}{$percentage}"
 [[block]]
 block = "bluetooth"
 mac = "DE:E1:9A:F0:54:24"
-disconnected_format = "$icon{^icon_mouse}POP"
+disconnected_format = ""
 format = "$icon{^icon_mouse} POP {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
