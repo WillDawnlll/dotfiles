@@ -166,12 +166,15 @@ idle_bg = "#44444488"
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
-#disconnected_format = ""
-format = "$icon EDIFIER {$battery_icon}{$percentage}"
+disconnected_format = "^icon_bluetooth{^icon_headphones}EDI"
+format = "^icon_bluetooth{^icon_headphones} EDI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 # Mi Air2 SE
 [[block]]
@@ -189,7 +192,7 @@ format = "$icon MI {$battery_icon}{$percentage}"
 block = "bluetooth"
 mac = "F4:73:35:6F:42:68"
 disconnected_format = ""
-format = "$icon K380 {$battery_icon}{$percentage}"
+format = "^icon_bluetooth{^icon_keyboard} K380 {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -210,12 +213,15 @@ format = "$icon MX {$battery_icon}{$percentage}"
 [[block]]
 block = "bluetooth"
 mac = "DE:E1:9A:F0:54:24"
-disconnected_format = "$icon POP"
-format = "$icon POP"
+disconnected_format = "$icon{^icon_mouse}POP"
+format = "$icon{^icon_mouse} POP {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 [[block]]
 block = "sound"
