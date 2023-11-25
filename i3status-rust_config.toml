@@ -166,7 +166,7 @@ idle_bg = "#44444488"
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
-disconnected_format = ""
+#disconnected_format = ""
 format = "$icon EDIFIER {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
@@ -210,7 +210,7 @@ format = "$icon MX {$battery_icon}{$percentage}"
 [[block]]
 block = "bluetooth"
 mac = "DE:E1:9A:F0:54:24"
-disconnected_format = ""
+disconnected_format = "$icon POP"
 format = "$icon POP"
 [block.battery_state]
 "0..20" = "critical"
