@@ -166,8 +166,8 @@ idle_bg = "#44444488"
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
-disconnected_format = "^icon_bluetooth{^icon_headphones}EDI"
-format = "^icon_bluetooth{^icon_headphones} EDI {$battery_icon}{$percentage}"
+disconnected_format = "{^icon_bluetooth}E"
+format = "^icon_headphones EDI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -180,12 +180,15 @@ idle_fg = "#00000000"
 [[block]]
 block = "bluetooth"
 mac = "9C:97:89:59:39:CF"
-disconnected_format = ""
-format = "$icon MI {$battery_icon}{$percentage}"
+disconnected_format = "{^icon_bluetooth}M"
+format = "^icon_headphones MI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 # k380 keyboard
 [[block]]
@@ -203,7 +206,7 @@ format = "^icon_bluetooth{^icon_keyboard} K380 {$battery_icon}{$percentage}"
 block = "bluetooth"
 mac = "D9:C2:C9:92:F9:84"
 disconnected_format = ""
-format = "$icon MX {$battery_icon}{$percentage}"
+format = "^icon_bluetooth{^icon_keyboard} MX {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
