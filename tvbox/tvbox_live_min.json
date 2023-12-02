@@ -1,0 +1,28 @@
+{
+   "lives":[
+      {
+         "group":"redirect",
+         "channels":[
+            {
+               "name":"live2",
+               "urls":[
+                   "proxy://do=live&type=txt&ext=aHR0cDovLzEyNy4wLjAuMTo5OTc4L2ZpbGUvMGRpci90bXAvbXlsaXZlLnR4dAo="
+               ]
+            }
+         ]
+      }
+   ],
+   "sites":[
+      {
+         "key":"南瓜",
+         "name":"南瓜_mintest1",
+         "type":3,
+         "api":"csp_NanGua",
+         "searchable":1,
+         "quickSearch":1,
+         "playerType":2,
+         "filterable":1,
+         "ext":""
+      }
+   ]
+}
