@@ -48,7 +48,7 @@ idle_fg = "#aaaaaa"
 [[block]]
 block = "net"
 interval = 5
-format = "{$icon}{$ssid} $ip"
+format = "{$icon}{$ssid|$device} $ip"
 #format = "$icon {$signal_strength $ssid} $ip"
 [block.theme_overrides]
 idle_fg = "#ffffff"
@@ -105,10 +105,10 @@ idle_bg = "#00000088"
 block = "custom"
 format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
-    "sudo cpupower frequency-set -u 2g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
     "sudo cpupower frequency-set -u 5g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f'",
+    "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
 ]
+    #"sudo cpupower frequency-set -u 2g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
 interval = "once"
 [block.theme_overrides]
 idle_bg = "#00000088"
