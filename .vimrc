@@ -957,6 +957,7 @@ function s:CONFIG_au_filetype() "{{{
         autocmd FileType python let $PYTHONPATH ='D:\code\pytest\work'
     else
         autocmd FileType c setlocal et
+        autocmd FileType python let $PYTHONPATH =$HOME.'/code/py/pytest/work'
     endif
     autocmd FileType c,cpp,python setlocal foldmethod=indent
     autocmd BufRead,BufNewFile *.h,*.c setlocal filetype=c list lcs=tab:\|_
@@ -1029,7 +1030,8 @@ function s:CONFIG_map() "{{{
     " 10次 @h 宏 , 并复制到剪贴板
     nmap <M-0> 0f"l10@hh<C-v>T"l"*yu
     " 搜索中文
-    nmap <M-z> /[^\x00-\xff]\{2,\}<CR>
+    nmap <leader>z /[^\x00-\xff]\{2,\}<CR>
+    "nmap <M-z> /[^\x00-\xff]\{2,\}<CR>
     " 删第二列地址
     nmap <M-d> 2gg0f0<C-v>Gf:d
     nmap <leader>n :nohl<CR>
@@ -1909,7 +1911,7 @@ function Pmd() "{{{
     sil exe "!firefox " .. expand("%") .. ".html"
     redraw!
 endfunction "}}}
-map <c-m> :call Pmd()<cr>
+"map <c-m> :call Pmd()<cr>
 
 " }}}
 
