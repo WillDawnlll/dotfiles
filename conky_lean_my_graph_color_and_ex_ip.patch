@@ -1,0 +1,49 @@
+diff --git a/conky.conf b/conky.conf
+index 133662b..beb9123 100644
+--- a/conky.conf
++++ b/conky.conf
+@@ -174,3 +174,4 @@ if local_conf.lcc.panel then lcc.panel = local_conf.lcc.panel end
+ 
+ -- build the panel
+ conky.text = C_.build_panel()
++print(conky.text)
+diff --git a/lib/components/core.lua b/lib/components/core.lua
+index 1651066..10fb87b 100644
+--- a/lib/components/core.lua
++++ b/lib/components/core.lua
+@@ -151,7 +151,7 @@ end
+ 
+ lcc.tpl.cpu = [[
+ ${font}${execi 3600 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'} ${alignr} ${cpu cpu0}%
+-${color3}${cpugraph cpu0}${color}
++${color3}${cpugraph cpu0 white cyan}${color}
+ {% if top_cpu_entries then %}
+ ${color2}${lua font h2 {PROCESS ${goto $sr{156}}PID ${goto $sr{194}}MEM% ${alignr}CPU%}}${font}${color}#
+ {% for _, v in ipairs(top_cpu_entries) do +%}
+@@ -237,7 +237,7 @@ end
+ lcc.tpl.network = [[
+ ${color2}${lua font icon_s { } {}}${lua font h2 {Local IPs}}${alignr}${lua font h2 {External IP}}${lua font icon_s { } {}}${font}${color}
+ ${execi 60 ip a | grep inet | grep -vw lo | grep -v inet6 | cut -d \/ -f1 | sed 's/[^0-9\.]*//g'}#
+-${alignr}${texeci 3600  wget -q -O- https://ipecho.net/plain; echo}
++${alignr}${texeci 3600  echo "no ex ip"; echo}
+ ${voffset $sr{5}}${lua ifaces 10}]]
+ function core.network()
+     return core.section("NETWORK", "") .. "\n" .. lcc.tpl.network()
+@@ -250,7 +250,7 @@ lcc.tpl.ifaces = [[
+ ${if_existing /sys/class/net/{%= iface %}/operstate up}#
+ ${lua font icon_s  ${voffset $sr{-1}}${font :size=$sc{7}}▼}${font}  ${downspeed {%= iface %}} ${alignc $sr{-22}}${lua font h2 {{%= iface %}}}${font}#
+ ${alignr}${upspeed {%= iface %}} ${lua font icon_s  ${voffset $sr{-2}}${font :size=$sc{7}}▲}${font}
+-${color3}${downspeedgraph {%= iface %} {%= lcc.half_graph_size %}} ${alignr}${upspeedgraph {%= iface %} {%= lcc.half_graph_size %} }${color}#
++${color3}${downspeedgraph {%= iface %} {%= lcc.half_graph_size %} white cyan} ${alignr}${upspeedgraph {%= iface %} {%= lcc.half_graph_size %} white cyan}${color}#
+ ${endif}
+ {% end %}
+ {% else %}
+@@ -262,6 +262,8 @@ function conky_ifaces(interv)
+     end)
+ end
+ 
++-- ${color1}${%= lcc.half_graph_size %} ${color1}${color3} ${color1}${downspeedgraph {%= iface %} {%= lcc.half_graph_size %} ${color1} ${color3} } ${alignr}${upspeedgraph {%= iface %} {%= lcc.half_graph_size %} }${color}#
++
+ ----------------------------
+ -- utils for internal use --
+ ----------------------------
