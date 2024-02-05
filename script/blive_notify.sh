@@ -13,8 +13,8 @@ do
     if [ $is_live -eq 0 ]
     then
         btime=$(echo $binfo|sed 's/[{},]/\n/g'|grep "live_time.*")
-        #cmd notification post -S bigtext ${room_id} ${btime}
-        notify-send ${room_id} "${btime}" -t 10000 -u normal
+        rish -c "cmd notification post -S bigtext -t ${room_id} blive ${btime}"
+        #notify-send ${room_id} "${btime}" -t 10000 -u normal
         exit
     else
         sleep $sleep_time
