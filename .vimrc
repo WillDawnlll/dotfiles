@@ -4,23 +4,19 @@ if 0
 endif
 
 let g:mapleader ="\<space>"
-let s:is_win = has('win32')
 
-"if has("gui_running")
-"    if has("gui_gtk2")
-"        :set guifont=Luxi\ Mono\ 12
-"    elseif has("x11")
-"        " Also for GTK 1
-"        :set guifont=*-lucidatypewriter-medium-r-normal-*-*-180-*-*-m-*-*
-"    elseif has("gui_win32")
-"        :set guifont=Luxi_Mono:h12:cANSI
-"    endif
-"endif
-let $v = $HOME.(s:is_win ? '\vimfiles' : '/.vim')
-let $work = v:true
+" 1/0 for bool v:true/v:false 
+let s:is_win = has('win32')
+let s:v = $HOME.(s:is_win ? '\vimfiles' : '/.vim')
+let s:is_work = 0
+let s:is_cursor_col = 1
+let s:is_trans = 0
+let s:is_dbglog = 0
 
 function s:CONFIG_vim_base() "{{{
     " win外部程序依赖 (不包含 f2菜单 启动项): rg ctags gtags python3 pwsh(powershell7) html-beautify 
+    "OS
+    "{{{
     if s:is_win
         set shell=cmd.exe
         set shellcmdflag=/c
@@ -36,9 +32,21 @@ function s:CONFIG_vim_base() "{{{
         set t_u7=
         "set t_Co=256
     endif
+    " }}}
+
+    "GUI
+    "{{{
     if has('gui_running')
-        " Settings for when running in a GUI
-        "字体
+        " GUI font{{{
+        "if has("gui_gtk2")
+        "    :set guifont=Luxi\ Mono\ 12
+        "elseif has("x11")
+        "    " Also for GTK 1
+        "    :set guifont=*-lucidatypewriter-medium-r-normal-*-*-180-*-*-m-*-*
+        "elseif has("gui_win32")
+        "    :set guifont=Luxi_Mono:h12:cANSI
+        "endif
+
         "set guifont=Sarasa_Term_SC:h10  Term 不是等宽, 导致斜体英文超出显示范围 , W600 字重
         set guifont=sarasa_mono_SC_Nerd:h11:W600
 
@@ -48,7 +56,9 @@ function s:CONFIG_vim_base() "{{{
         "set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
         "set guifont=Ubuntu_Mono_derivative_Powerlin:h10:cANSI
         "set guifontwide=幼圆:h10.5:cGB2312
-        "
+
+        "}}}
+
         source $VIMRUNTIME/delmenu.vim
         source $VIMRUNTIME/menu.vim
 
@@ -73,8 +83,10 @@ function s:CONFIG_vim_base() "{{{
         "Plug 'chriskempson/base16-vim'
         "color base16
     endif
+    "}}}
 
-
+    "normal
+    "{{{
     " 显示状态行当前设置
     "set statusline
 
@@ -154,7 +166,7 @@ function s:CONFIG_vim_base() "{{{
     "set listchars=tab:> ,trail:-,extends:>,precedes:<,nbsp:+,space:·
     "set lcs+=space:·
     "set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:·,eol:$
-    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+,space:_
+    set lcs=tab:>_,trail:-,extends:>,precedes:<,nbsp:+
     set list 
     "set invlist
 
@@ -169,19 +181,20 @@ function s:CONFIG_vim_base() "{{{
     "set noeb
     " 闪屏代替声
     set vb
-    "
+
+    " cursor {{{
     set cursorline
+    let v:colornames['cursor_bg'] = s:is_trans ? '#333333' : v:colornames['black']
     hi Cursor  cterm=reverse gui=reverse
-    hi CursorLine     guibg=#333333 ctermbg=black
-    if s:is_win
+    hi CursorLine guibg=cursor_bg ctermbg=black
+    "if s:is_win || !s:is_trans
+    if s:is_cursor_col
         set cursorcolumn
-        hi CursorColumn   guibg=black ctermbg=black
-    else
-        "set cursorcolumn
-        "hi CursorColumn   guibg=black ctermbg=black
+        hi CursorColumn guibg=cursor_bg ctermbg=black
     endif
     "hi CursorColumn cterm=reverse gui=reverse
     "hi CursorLine cterm=reverse gui=reverse
+    "}}}
 
     " default cterm=underline or undercurl ctermul guisp
     hi ErrorText guifg=yellow guibg=red
@@ -266,6 +279,9 @@ function s:CONFIG_vim_base() "{{{
 
     " re map show full path
     nnoremap <c-g> 1
+
+    let g:vimsyn_embed = 'P'
+    " }}}
 endfunction "}}}
 
 
@@ -476,6 +492,7 @@ function s:CONFIG_plugs_base() "{{{
     let g:rainbow_active = 1
     let g:rainbow_conf = { 'separately': { 'cmake': 0, } }
 
+    " color{{{
     "colorscheme molokai
     " plug sonokai config
     if has('termguicolors')
@@ -496,8 +513,18 @@ function s:CONFIG_plugs_base() "{{{
     colorscheme sonokai
 
     " st-alpha opacity , only work in tmux ??
-    hi Normal guibg=NONE
-    hi EndOfBuffer guibg=NONE
+    " !! in '!!system()' mean convert system() return value to bool (':h type()' 6)
+    if s:is_trans
+        if !!system('pgrep st-alpha') && !!system('pgrep picom')
+            hi Normal guibg=NONE
+            hi EndOfBuffer guibg=NONE
+        else
+            call Msgbox("linux not support transparency")
+        endif
+    else
+        "hi Normal guibg=#333333
+    endif
+    "}}}
 
     nnoremap <Leader>h :Hexmode<CR>
     "inoremap <Leader>h <Esc>:Hexmode<CR>
@@ -818,17 +845,17 @@ function s:CONFIG_plugs_ext() "{{{
     " coc explorer {{{
     let g:coc_explorer_global_presets = {
                 \   'tab': {
-                    \     'position': 'tab',
-                    \     'quit-on-open': v:true,
-                    \   },
-                    \   'simplify': {
-                        \     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename growRight 1 omitCenter 5]  [size]'
-                        \   },
-                        \   'buffer': {
-                            \     'sources': [{'name': 'buffer', 'expand': v:true}]
-                            \   },
-                            \ }
-                            "\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename | 60] [size]'
+                \     'position': 'tab',
+                \     'quit-on-open': v:true,
+                \   },
+                \   'simplify': {
+                \     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename growRight 1 omitCenter 5]  [size]'
+                \   },
+                \   'buffer': {
+                \     'sources': [{'name': 'buffer', 'expand': v:true}]
+                \   },
+                \ }
+    "\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename | 60] [size]'
     "}}}
     nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
@@ -933,6 +960,8 @@ endfunction "}}}
 function s:CONFIG_au_filetype() "{{{
     " 补全path设置
     autocmd FileType markdown setlocal lcs-=trail foldmethod=marker
+    " markdown syntax highlight hack
+    " {{{
     "autocmd FileType markdown syn match mt0 '^# .*' containedin=ALL contained |hi mt0 guibg=gray90 guifg=gray30
     "autocmd FileType markdown syn match mt1 '^## .*' containedin=ALL contained |hi mt1 guibg=gray90 guifg=gray30
     "autocmd FileType markdown syn match mt2 '^### .*' containedin=ALL contained |hi mt2 guibg=gray90 guifg=gray30
@@ -943,6 +972,7 @@ function s:CONFIG_au_filetype() "{{{
     "autocmd FileType markdown syn match m12 '_.\{-1,}_' containedin=ALL contained  |hi m12 guifg=cyan
     "autocmd FileType markdown syn match m21 '\*\*.\{-1,}\*\*' containedin=ALL contained |hi m21 guifg=springgreen
     "autocmd FileType markdown syn match m22 '__.\{-1,}__' containedin=ALL contained |hi m22 guifg=springgreen
+    "}}}
     autocmd FileType markdown nnoremap <leader>` ciw``<esc>P
     autocmd FileType markdown setlocal foldlevel=0
     "autocmd FileType markdown setlocal foldlevel=99
@@ -968,7 +998,6 @@ function s:CONFIG_au_filetype() "{{{
 
     autocmd FileType * call <SID>def_base_syntax() 
     function! s:def_base_syntax() "{{{
-        " Simple example
         syntax match commonOperator "\(+\|=\|-\|\^\|\*\|&\||\|>\|!\)"
         syntax match baseDelimiter ","
         hi link commonOperator Operator
@@ -1336,7 +1365,8 @@ endfunction "}}}
 "}}}
 "call <sid>CONFIG_coc_exp_menus()
 
-"quickui other {{{
+"quickui other
+"{{{
 " display vim messages in the textbox
 function! DisplayMessages()
     let x = ''
@@ -1496,10 +1526,21 @@ endfunction "}}}
 " AL {{{
 "function! AL()
  "}}}
+ 
+function Notify(msg) "{{{
+    if s:is_win
+        echo "FUNC no notify-send"
+        finish
+    endif
+    call system('notify-send -u critical "VIM Notify" "'.a:msg.'"')
+endfunction "}}}
 
 function Msgbox(msg) "{{{
     if !has("python3")
         echo "FUNC no python3"
+        if !s:is_win
+            Notify(msg)
+        endif
         finish
     endif
     py3 import sys
@@ -1736,7 +1777,7 @@ function FormatPeriod()"{{{
     :%s/\(\w\|,\)\n\([^\n]\)/\1 \2/g
 endfunction"}}}
 
-function SetAlpha(n) "{{{
+function SetWinAlpha(n) "{{{
     if !has("python3")
         echo "FUNC no python3"
         finish
@@ -1896,7 +1937,9 @@ function W() "{{{
 
     EOF
 endfunction "}}}
-nmap <F2> :call W()<cr>
+if s:is_win
+    nmap <F2> :call W()<cr>
+endif
 
 set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
 augroup MyQuickfixPreview
@@ -1913,6 +1956,44 @@ function Pmd() "{{{
 endfunction "}}}
 "map <c-m> :call Pmd()<cr>
 
+function! s:pgrep(procname) "{{{
+    if !s:is_dbglog
+        return !!system('pgrep "' . a:procname . '"')
+    else
+        let _ret = !system('pgrep "' . a:procname . '"')
+        echo 'log: '.a:procname.' ret:'._ret.' type:'.type(_ret)
+        echo 't: '.(_ret == v:true)
+        echo 'f: '.(_ret == v:false)
+        return _ret
+    endif
+endfunction "}}}
+
+"TEMP
+"" set bg color transparency when run in st-alpha with picom
+"let s:is_st = <sid>pgrep("st-alpha")
+"let s:is_picom = <sid>pgrep("picom")
+""echo 'is_st '.s:is_st
+""echo 'is_pi '.s:is_picom
+
+"TODO store variable in so ?
+function! ToggleLinuxTransparency() "{{{
+    if s:is_trans
+        let s:is_trans = 0
+    else
+        let s:is_trans = 1
+    endif
+    echo 's:is_trans '.s:is_trans
+endfunction "}}}
+if !s:is_win
+    nmap <F2> :call ToggleLinuxTransparency()<cr>
+    "TEMP
+    function Test()
+        echo s:is_trans
+        echo v:colornames['cursor_bg']
+    endfunction
+    nmap <F3> :call Test()<cr>
+endif
+
 " }}}
 
 
@@ -1922,7 +2003,7 @@ endfunction "}}}
 "  finish
 "endif
 "let g:loaded_lightline_powerful = 1
-"
+
 call <sid>CONFIG_plugs_base() " not cover base set , call must before vim_base
 call <sid>CONFIG_vim_base()
 call <sid>CONFIG_plugs_cocconfig()
@@ -1941,4 +2022,5 @@ if s:is_win
     source ~/vimrc/misc.vimrc
 endif
 "TODO try catch , source empty vimrc , no plug mode restart vim
+"TEMP
 "set csprg= "C:/tools/open_code/cscope/cscope.exe"
