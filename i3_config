@@ -45,7 +45,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.8 tmux
+bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.6 tmux
 #bindsym $mod+Return exec ~/st tmux
 #bindsym $mod+Return exec i3-sensible-terminal
 
@@ -257,8 +257,11 @@ bindsym $mod+m exec --no-startup-id $HOME/.i3/i3-swap-master.py
 
 bindsym $mod+Shift+s sticky toggle
 
-exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
+#exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
+exec_always --no-startup-id xset -dpms s off
+
+bindsym $mod+x exec --no-startup-id PIC=$HOME/Pictures/screenshot_$(date +"%Y%m%d_%H%M%S").jpg && import -window root $PIC && LANG=zh_CN.UTF-8 xdg-open $PIC
 
 # ################################################################################
 # 
