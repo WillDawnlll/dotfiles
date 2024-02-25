@@ -240,8 +240,16 @@ bindsym $mod+o exec --no-startup-id transset -t .5 -i $(xprop -root _NET_ACTIVE_
 exec --no-startup-id setxkbmap -option caps:swapescape
 #exec --no-startup-id xcompmgr -c
 exec --no-startup-id picom
+
+#assign [class="Conky_rss"] 4
+#for_window [class="Conky_rss"] border pixel 0
+#for_window [class="Conky_rss"] below
+#for_window [class="Conky_rss"] floating enable
+bindsym $mod+shift+minus move scratchpad
+bindsym $mod+shift+equal scratchpad show
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
+
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
 exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
