@@ -662,11 +662,13 @@ function s:CONFIG_plugs_cocconfig() "{{{
 
     " TODO shfmt
                 "\"coc.preferences.hoverTarget": "float",
+    " install: rustup component add rust-analyzer
     let g:coc_user_config = {
                 \"coc.preferences.formatOnSaveFiletypes": ["rust"],
                 \"diagnostic.checkCurrentLine": v:true,
                 \"inlayHint.enable": v:false,
                 \"python.jediEnabled": v:true,
+                \"rust-analyzer.server.path": $HOME."/.cargo/bin/rust-analyzer",
                 \"rust-analyzer.updates.checkOnStartup": v:false
                 \}
     "let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
