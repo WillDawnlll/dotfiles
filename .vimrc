@@ -172,6 +172,11 @@ function s:CONFIG_vim_base() "{{{
 
     set relativenumber
     set nu
+    augroup numbertoggle
+        autocmd!
+        autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+        autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+    augroup END
 
     " autoit 3000行时 重绘超时  , 语法高亮被禁用
     " 设定更大的超时时间
