@@ -121,6 +121,8 @@ alias px='proxychains4'
 alias sudo='sudo '
 alias es='es -highlight '
 alias pw='upower -i `upower -e | grep 'BAT'` '
+alias fd='fdfind '
+alias rcp='rsync -ahv --progress '
 #need apt install manpages-zh
 manzh() {
     echo "in func manzh"
