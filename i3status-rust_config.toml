@@ -260,27 +260,6 @@ idle_fg = "#ff8800"
 button = "right"
 action = "cycle"
 
-#laptop keyboard switch button with fg color change
-[[block]]
-block = "custom"
-format = "⌨"
-cycle = [
-    #"xinput enable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
-    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
-    '''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
-    '''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
-]
-json = true
-interval = "once"
-[block.theme_overrides]
-idle_bg = "#00000088"
-idle_fg = "#ff0000"
-critical_bg = "#00000088"
-critical_fg = "#00ff00"
-[[block.click]]
-button = "right"
-action = "cycle"
-
 [[block]]
 block = "backlight"
 #mipad2 comment
@@ -308,6 +287,27 @@ format = " $timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 [block.theme_overrides]
 idle_bg = "#00000088"
 idle_fg = "#00ffff"
+
+#laptop keyboard switch button with fg color change
+[[block]]
+block = "custom"
+format = "⌨"
+cycle = [
+    #"xinput enable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
+    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
+    '''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+    '''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+]
+json = true
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#ff0000"
+critical_bg = "#00000088"
+critical_fg = "#00ff00"
+[[block.click]]
+button = "right"
+action = "cycle"
 
 # keyboard CAPS lock status
 [[block]]
