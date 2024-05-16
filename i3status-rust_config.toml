@@ -274,9 +274,9 @@ json = true
 interval = "once"
 [block.theme_overrides]
 idle_bg = "#00000088"
-idle_fg = "#aaaaaa"
-critical_fg = "#ff00ff"
+idle_fg = "#ff0000"
 critical_bg = "#00000088"
+critical_fg = "#00ff00"
 [[block.click]]
 button = "right"
 action = "cycle"
