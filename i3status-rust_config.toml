@@ -309,6 +309,25 @@ critical_fg = "#00ff00"
 button = "right"
 action = "cycle"
 
+#laptop touchpad switch button with fg color change
+[[block]]
+block = "custom"
+format = "🖰"
+cycle = [
+    '''xinput enable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
+    '''xinput disable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
+]
+json = true
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#ff0000"
+critical_bg = "#00000088"
+critical_fg = "#00ff00"
+[[block.click]]
+button = "right"
+action = "cycle"
+
 # keyboard CAPS lock status
 [[block]]
 block = "custom"
