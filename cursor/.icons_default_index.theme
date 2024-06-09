@@ -1,5 +1,12 @@
 # tar -xvf ./pixelfun2-dracula-v6.tar.gz -C ~/.icons
 # cp ./.icons_default_index.theme ~/.icons/default/index.theme
 # echo "Xcursor.size:96" >> ~/.Xresources;xrdb ~/.Xresources
+
+# firefox cursor set
+# ~/.config/gtk-3.0/settings.ini
+# [Settings]
+# gtk-cursor-theme-name= pixelfun2-dracula
+# gtk-cursor-theme-size=-1
+
 [icon theme] 
 Inherits=pixelfun2-dracula
