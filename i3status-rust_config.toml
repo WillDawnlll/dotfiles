@@ -105,8 +105,8 @@ idle_bg = "#00000088"
 block = "custom"
 format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -u 5g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f'",
     "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
+    "sudo cpupower frequency-set -u 5g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f'",
 ]
     #"sudo cpupower frequency-set -u 2g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
 interval = "once"
@@ -340,3 +340,22 @@ idle_bg = "#00000088"
 idle_fg = "#aaaaaa"
 critical_fg = "#ff00ff"
 critical_bg = "#00000088"
+
+[[block]]
+block = "menu"
+text = "⊞"
+[[block.items]]
+display = "[X]"
+cmd = "i3-msg kill"
+[[block.items]]
+display = "[F]"
+cmd = "i3-msg floating toggle"
+[[block.items]]
+display = "[^]"
+cmd = "i3-msg fullscreen toggle"
+[[block.items]]
+display = "[>]"
+cmd = "i3-msg move container to workspace next;i3-msg workspace next"
+#[block.theme_overrides]
+#idle_bg = "#ffffff"
+#idle_fg = "#000000"
