@@ -192,6 +192,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    #mode dock
+    #hidden_state show
     position top
     #gaps 14 14
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
@@ -257,6 +259,8 @@ exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
 #exec --no-startup-id xfce4-panel
 #exec --no-startup-id onboard
 exec --no-startup-id solaar -w hide
+
+exec --no-startup-id kdeconnect-indicator
 
 #include /etc/sway/config.d/*
 
