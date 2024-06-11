@@ -46,6 +46,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.6 tmux
+bindsym $mod+shift+Return exec ~/dotfiles/st-alpha -A 1 tmux
 #bindsym $mod+Return exec ~/st tmux
 #bindsym $mod+Return exec i3-sensible-terminal
 
