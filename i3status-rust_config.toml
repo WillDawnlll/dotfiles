@@ -167,7 +167,8 @@ idle_bg = "#44444488"
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
-disconnected_format = "{^icon_bluetooth}E"
+#disconnected_format = "{^icon_bluetooth}E"
+disconnected_format = ""
 format = "^icon_headphones EDI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
@@ -181,7 +182,8 @@ idle_fg = "#00000000"
 [[block]]
 block = "bluetooth"
 mac = "9C:97:89:59:39:CF"
-disconnected_format = "{^icon_bluetooth}M"
+#disconnected_format = "{^icon_bluetooth}M"
+disconnected_format = ""
 format = "^icon_headphones MI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
@@ -201,6 +203,9 @@ format = "^icon_bluetooth{^icon_keyboard}K380 {$battery_icon}{$percentage}"
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 # MX Keys Mini
 [[block]]
@@ -208,11 +213,14 @@ block = "bluetooth"
 #mac = "D9:C2:C9:92:F9:84"
 mac = "D9:C2:C9:92:F9:8D"
 disconnected_format = ""
-format = "^icon_bluetooth{^icon_keyboard}MX {$battery_icon}{$percentage}"
+format = "^icon_bluetooth{^icon_keyboard}MX"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 # XBOX
 [[block]]
@@ -224,6 +232,9 @@ format = "{^icon_bluetooth}XBOX"
 "0..20" = "critical"
 "21..70" = "warning"
 "71..100" = "good"
+[block.theme_overrides]
+idle_bg = "#88888888"
+idle_fg = "#00000000"
 
 # Logi POP Mouse
 [[block]]
