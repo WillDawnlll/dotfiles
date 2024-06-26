@@ -105,8 +105,9 @@ idle_bg = "#00000088"
 block = "custom"
 format = "$text.pango-str()"
 cycle = [
-    "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
     "sudo cpupower frequency-set -u 5g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.1f'",
+    "sudo cpupower frequency-set -u 400m 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
+    "sudo cpupower frequency-set -u 1g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
 ]
     #"sudo cpupower frequency-set -u 2g 1> /dev/null; cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f'",
 interval = "once"
@@ -195,7 +196,7 @@ idle_fg = "#00000000"
 block = "bluetooth"
 mac = "F4:73:35:6F:42:68"
 disconnected_format = ""
-format = "^icon_bluetooth{^icon_keyboard} K380 {$battery_icon}{$percentage}"
+format = "^icon_bluetooth{^icon_keyboard}K380 {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
@@ -204,9 +205,21 @@ format = "^icon_bluetooth{^icon_keyboard} K380 {$battery_icon}{$percentage}"
 # MX Keys Mini
 [[block]]
 block = "bluetooth"
-mac = "D9:C2:C9:92:F9:84"
+#mac = "D9:C2:C9:92:F9:84"
+mac = "D9:C2:C9:92:F9:8D"
 disconnected_format = ""
-format = "^icon_bluetooth{^icon_keyboard} MX {$battery_icon}{$percentage}"
+format = "^icon_bluetooth{^icon_keyboard}MX {$battery_icon}{$percentage}"
+[block.battery_state]
+"0..20" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+# XBOX
+[[block]]
+block = "bluetooth"
+mac = "EC:83:50:94:D4:EF"
+disconnected_format = ""
+format = "{^icon_bluetooth}XBOX"
 [block.battery_state]
 "0..20" = "critical"
 "21..70" = "warning"
