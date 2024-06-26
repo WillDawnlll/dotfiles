@@ -1,7 +1,20 @@
 # install & setup
+
+## debian 12  i3wm x11
 apt install ibus-rime, librime-data-double-pinyin
 cp default.custom.yaml double_pinyin_flypy.custom.yaml ~/.config/ibus/rime
 ibus-setup gui select rime
 ibus-daemon -drx
 im-config -l
 im-config -s ibus
+
+## debian12 wayland swaywm
+
+git clone https://github.com/xhebox/wlpinyin
+sudo apt install librime wayland-protocols
+
+git clone https://github.com/rime/plum
+`rime_dir=$HOME/.config/wlpinyin bash rime-install essay luna-pinyin prelude double-pinyin`
+cp default.custom.yaml double_pinyin_flypy.custom.yaml ~/.config/wlpinyin
+
+run ~/code/wlpinyin/build/wlpinyin
