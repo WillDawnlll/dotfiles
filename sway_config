@@ -45,7 +45,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.8 tmux
+#bindsym $mod+Return exec ~/dotfiles/st-alpha -A 0.8 tmux
+bindsym $mod+Return exec foot tmux
 #bindsym $mod+Return exec ~/st tmux
 #bindsym $mod+Return exec i3-sensible-terminal
 
@@ -192,6 +193,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    #mode hide
+    #hidden_state hide
     position top
     gaps 14 14
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
@@ -226,7 +229,7 @@ client.unfocused        #333333 #222222 #cccccc #292d2e   #444444
 client.background       #00ffff
 gaps inner 14px
 #gaps outer 5px
-for_window [class=".*"] border pixel 2
+#for_window [class=".*"] border pixel 2
 #exec --no-startup-id compton -b
 
 bindsym $mod+equal exec "brightnessctl set 5%+"
@@ -239,12 +242,18 @@ bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_
 
 #exec --no-startup-id xcompmgr -c
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
+exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
+
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
 #exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
 #exec --no-startup-id bash /home/u1/barriers.sh
 #exec --no-startup-id xfce4-panel
 #exec --no-startup-id onboard
+exec --no-startup-id solaar -w hide
+
+exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id /home/u1/code/wlpinyin/build/wlpinyin
 
 #include /etc/sway/config.d/*
 
@@ -293,7 +302,8 @@ input "1267:12668:MSFT0001:00_04F3:317C_Touchpad" {
     pointer_accel 1
 }
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-default_border none
+#default_border none
+default_border pixel 2
 default_floating_border normal
 
 set $gnome-schema org.gnome.desktop.interface
