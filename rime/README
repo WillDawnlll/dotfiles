@@ -18,3 +18,15 @@ git clone https://github.com/rime/plum
 cp default.custom.yaml double_pinyin_flypy.custom.yaml ~/.config/wlpinyin
 
 run ~/code/wlpinyin/build/wlpinyin
+
+### xwayland ibus
+
+put these in /etc/environment
+work for xwayland st, not work in steam
+wayland firefox wlpinyin notwork , url bar show ibus with text flash bug
+```
+INPUT_METHOD=ibus
+GTK_IM_MODULE=ibus
+QT_IM_MODULE=ibus
+XMODIFIERS=@im=ibus
+```
