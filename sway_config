@@ -54,7 +54,7 @@ bindsym $mod+Return exec foot tmux
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'terminess nerd font mono:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
+bindsym $mod+d exec --no-startup-id bemenu-run -i --fn 'terminess nerd font mono bold 40' --ab '#004444' --af '#00ffff' --nb '#004444' --nf '#00ffff' --hb '#00ffff' --hf '#000000' --ff '#ffffff' --fb '#000000' --tf '#000000' --tb '#ffffff' -l 9
 #bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'sarasa mono sc nerd:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -102,14 +102,18 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 #bindsym $mod+Shift+space floating toggle; resize set 800 1200; move position 30 px 400 px
-bindsym $mod+Shift+space floating toggle; resize set 1300 800; move position 1580 px 1000 px
+bindsym $mod+Shift+space floating toggle; resize set 900 600; move position 0 px 0 px
+#bindsym $mod+Shift+space floating toggle; resize set 1300 800; move position 1580 px 1000 px
 #right bottom
-bindsym $mod+Shift+i resize set 1300 800; move position 1580 px 1000 px
+bindsym $mod+Shift+i resize set 900 600; move position 0 px 0 px
+#bindsym $mod+Shift+i resize set 1300 800; move position 1580 px 1000 px
 #right top
-bindsym $mod+Shift+o resize set 1300 800; move position 1580 px 50 px
+bindsym $mod+Shift+o resize set 900 600; move position 1000 px 0 px
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
+bindsym $mod+ctrl+space exec ${HOME}/dotfiles/script/nextkb
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -202,8 +206,10 @@ bar {
     separator_symbol ""
     #height 24
     #font pango:terminess nerd font mono, Material Icons 16
-    height 38
-    font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 26
+    height 24
+    font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 18
+    #height 38
+    #font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 26
     #mipad2
     #height 30
     #font pango:terminess nerd font mono, Material Icons bold 12
@@ -242,7 +248,7 @@ bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_
 
 #exec --no-startup-id xcompmgr -c
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
-exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
+#exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
 
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
@@ -271,7 +277,8 @@ exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 #default /etc/sway/config
 
 #stretch", "fill", "fit", "center", "tile")
-output eDP-1 scale 1 bg ~/dotfiles/bg.png fill
+output eDP-1 scale 1.5 bg ~/dotfiles/bg.png fill
+output DP-3 scale 1 bg ~/dotfiles/bg.png fill
 #output eDP-1 {
 #   mode 2880x1800@90.000Hz
 #   mode 1920x1200@90.000Hz
