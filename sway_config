@@ -270,6 +270,9 @@ bindsym $mod+Shift+s sticky toggle
 
 exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
+bindsym $mod+p exec grimshot copy area
+#bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
+
 
 ################################################################################
 
