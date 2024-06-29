@@ -19,7 +19,7 @@ icons = "material-nf"
 #icons = "awesome4"
 [icons.overrides]
 #memory_mem = ""
-net_vpn = "V2a"
+net_vpn = "V"
 #bat = ["|E|", "|_|", "|=|", "|F|"]
 #bat_charging = "|^| "
 cpu_boost_on = ""
@@ -67,8 +67,9 @@ critical_bg = "#00333388"
 [[block]]
 block = "cpu"
 #interval = 10
-format = "$barchart {$boost|}$frequency.eng(w:3,hide_unit:true)~"
-format_alt = "{$icon}$utilization $max_frequency.eng(w:3,hide_unit:true)"
+#format = "$barchart {$boost|}$frequency.eng(w:3,hide_unit:true)~"
+format = "{$boost|}$utilization x̅{$frequency.eng(w:3,hide_unit:true)}"
+format_alt = "{$boost|}$utilization ↑{$max_frequency.eng(w:3,hide_unit:true)}"
 #format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
 idle_bg = "#00000088"
@@ -175,7 +176,7 @@ format = "^icon_headphones EDI {$battery_icon}{$percentage}"
 "71..100" = "good"
 [block.theme_overrides]
 idle_bg = "#88888888"
-idle_fg = "#00000000"
+idle_fg = "#ffffffff"
 
 # Mi Air2 SE
 [[block]]
@@ -189,7 +190,7 @@ format = "^icon_headphones MI {$battery_icon}{$percentage}"
 "71..100" = "good"
 [block.theme_overrides]
 idle_bg = "#88888888"
-idle_fg = "#00000000"
+idle_fg = "#ffffffff"
 
 # k380 keyboard
 [[block]]
@@ -250,6 +251,8 @@ idle_fg = "#00000000"
 
 [[block]]
 block = "sound"
+headphones_indicator = true
+format = "$icon{ $volume|}"
 [[block.click]]
 button = "left"
 cmd = "pavucontrol"
@@ -286,6 +289,7 @@ action = "cycle"
 block = "backlight"
 #mipad2 comment
 device = "intel_backlight"
+format = "$icon $brightness"
 [block.theme_overrides]
 idle_bg = "#00000088"
 idle_fg = "#888888"
@@ -296,11 +300,11 @@ block = "battery"
 #mipad2 comment no BAT1
 device = "BAT1"
 interval = 30
-format = " $icon $percentage $time $power "
-full_format=" $icon FULL "
-charging_format=" $icon $percentage ⚡ $time "
-not_charging_format =" $icon no "
-missing_format =" $icon missing "
+format = "$icon $percentage $time $power"
+full_format="$icon FULL"
+charging_format="$icon $percentage ⚡ $time"
+not_charging_format ="$icon no"
+missing_format ="$icon missing"
 
 [[block]]
 block = "time"
