@@ -2,7 +2,9 @@
 # i3 config file (v4)
 set $mod Mod4
 
-font pango:terminess nerd font mono bold 26
+#font pango:terminess nerd font mono bold 26
+font pango:LXGW WenKai GB Screen R 16
+#font pango:sarasa mono sc nerd 20
 #mipad2
 #font pango:terminess nerd font mono bold 12
 #font pango:3270 nerd font bold 26
@@ -33,6 +35,7 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id bemenu-run -i --fn 'terminess nerd font mono bold 40' --ab '#004444' --af '#00ffff' --nb '#004444' --nf '#00ffff' --hb '#00ffff' --hf '#000000' --ff '#ffffff' --fb '#000000' --tf '#000000' --tb '#ffffff' -l 9
 #bindsym $mod+d exec --no-startup-id dmenu_run -i -fn 'sarasa mono sc nerd:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
+#bindsym $mod+d exec --no-startup-id wmenu-run -i -fn 'sarasa mono sc nerd:bold:pixelsize=50' -nb '#004444' -nf '#00ffff' -sb '#00ffff' -sf '#000000' -l 9
 
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -48,10 +51,14 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 bindsym $mod+f fullscreen toggle
+#client window will span all available outputs
+bindsym $mod+shift+f fullscreen toggle global
 
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+e layout toggle splith tabbed
+
+workspace_layout tabbed
 
 #bindsym $mod+Shift+space floating toggle; resize set 800 1200; move position 30 px 400 px
 bindsym $mod+Shift+space floating toggle; resize set 900 600; move position 0 px 0 px
@@ -102,6 +109,11 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+workspace_auto_back_and_forth yes
+# switch between the current and the previously focused one
+#bindsym $mod+b workspace back_and_forth
+#bindsym $mod+Shift+b move container to workspace back_and_forth
+
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "swaynag -t warning -m 'exit sway?' -B 'exit' 'swaymsg exit' -f 'pango:sarasa mono sc nerd 22'" 
@@ -120,7 +132,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-    tray_output none
+    #tray_output none
     # default is dock
     mode dock
     #hidden_state hide
@@ -158,25 +170,45 @@ bar {
 
 #v4.20 new "include <pattern>"
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #00ffff #00ffff #000000 #ffffff   #00ffff
-client.unfocused        #333333 #222222 #cccccc #292d2e   #444444
+#client.focused          #00ffff #00ffff #000000 #ffffff   #00ffff
+#client.unfocused        #330000 #222222 #cccccc #292d2e   #444444
+
+# class                 border  backgr.   text    indicator child_border
+client.focused          #00ffff #00ffffff #000000 #ffffff   #00ffff
+client.focused_inactive #00ffff #00ffff00 #00ffff #00ffff   #444444
+#client.unfocused        #00000000 #00ffff00 #ffffff #00ffff   #00ffff
+client.unfocused        #00ffff #00ffff00 #ffffff #00ffff   #444444
 client.background       #00ffff
+
 #gaps inner 14px
 #gaps outer 5px
+
 #for_window [class=".*"] border pixel 2
-#exec --no-startup-id compton -b
+for_window [floating] border normal 1 
+#default_border none
+default_border normal 1
+default_floating_border normal 1
+titlebar_border_thickness 1
+#hide_edge_borders both
+
+#title_window_icona toggle
 
 bindsym $mod+equal exec "brightnessctl set 5%+"
 bindsym $mod+minus exec "brightnessctl set 5%-"
 bindsym $mod+Up    exec "amixer set Master 10%+"
 bindsym $mod+Down  exec "amixer set Master 10%-"
 
-bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
+#opacity [set|plus|minus] <value>
+bindsym $mod+shift+equal opacity set 0.2
+bindsym $mod+shift+minus opacity set 1
 #bindsym $mod+shift+o exec --no-startup-id transset 1 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
 
-bindsym $mod+shift+minus move scratchpad
-bindsym $mod+shift+equal scratchpad show
+#bindsym $mod+Shift+z floating enable, resize set width 1440 height 900, move scratchpad
+bindsym $mod+shift+z move scratchpad
+bindsym $mod+z scratchpad show, resize set width 1440 height 900, move position 0 px 0 px
+#bindsym $mod+shift+minus move scratchpad
+#bindsym $mod+shift+equal scratchpad show
+
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 #exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
 
@@ -194,11 +226,10 @@ exec --no-startup-id /home/u1/code/wlpinyin/build/wlpinyin
 #include /etc/sway/config.d/*
 
 ##git clone https://github.com/Hippo0o/i3-master-layout
-bindsym $mod+m exec --no-startup-id $HOME/.i3/i3-swap-master.py
+#bindsym $mod+m exec --no-startup-id $HOME/.i3/i3-swap-master.py
+#exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
 bindsym $mod+Shift+s sticky toggle
-
-exec_always --no-startup-id $HOME/.i3/i3-master-layout.py
 
 bindsym $mod+p exec grimshot copy area
 #bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
@@ -210,17 +241,19 @@ bindsym $mod+p exec grimshot copy area
 #default /etc/sway/config
 default_orientation horizontal
 
+#i3
+#focus output left|right|down|up|current|primary|nonprimary|next|<output1> [output2]…
+#bindsym $mod+tab focus output eDP-1 DP-3
+#sway
+#focus output up|right|down|left
+#no next, right can cycle
+bindsym $mod+tab focus output right
+#bindsym $mod+tab workspace next
+
 workspace 1 output eDP-1
 workspace 2 output eDP-1
-workspace 3 output eDP-1
-workspace 4 output eDP-1
-workspace 5 output eDP-1
-
-workspace 6 output DP-3
-workspace 7 output DP-3
-workspace 8 output DP-3
-workspace 9 output DP-3
-workspace 10 output DP-3
+workspace 3 output DP-3
+workspace 4 output DP-3
 
 #stretch", "fill", "fit", "center", "tile")
 output eDP-1 scale 1.5 bg ~/dotfiles/bg.png fill
@@ -255,9 +288,6 @@ input "1267:12668:MSFT0001:00_04F3:317C_Touchpad" {
     pointer_accel 1
 }
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-#default_border none
-default_border pixel 2
-default_floating_border normal
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -271,3 +301,16 @@ exec_always {
 
 # copy from /etc/sway/confg
 include /etc/sway/config.d/*
+
+################################################################################
+################################################################################
+# swayfx
+
+blur enable
+corner_radius 30
+#titlebar_separator enable
+
+##blur_xray enable
+##default_dim_inactive 0.5
+##shadows enable
+##scratchpad_minimize enable
