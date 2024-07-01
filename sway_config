@@ -175,7 +175,8 @@ bindsym $mod+Down  exec "amixer set Master 10%-"
 bindsym $mod+o exec --no-startup-id transset -t .6 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
 #bindsym $mod+shift+o exec --no-startup-id transset 1 -i $(xprop -root _NET_ACTIVE_WINDOW | awk '{ print $5 }')
 
-#exec --no-startup-id xcompmgr -c
+bindsym $mod+shift+minus move scratchpad
+bindsym $mod+shift+equal scratchpad show
 exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
 #exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
 
@@ -207,6 +208,7 @@ bindsym $mod+p exec grimshot copy area
 
 #sway config
 #default /etc/sway/config
+default_orientation horizontal
 
 workspace 1 output eDP-1
 workspace 2 output eDP-1
@@ -266,3 +268,6 @@ exec_always {
     gsettings set $gnome-schema cursor-size 96
     gsettings set $gnome-schema font-name 'sarasa mono sc nerd 18'
 }
+
+# copy from /etc/sway/confg
+include /etc/sway/config.d/*
