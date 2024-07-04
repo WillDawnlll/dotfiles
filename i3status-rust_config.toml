@@ -34,7 +34,8 @@ block = "focused_window"
 full = "$title.str    |"
 short = "$title.str(max_w:10)    |"
 [block.theme_overrides]
-idle_bg = "#00000088"
+idle_bg = "#00000000"
+#idle_bg = "#00000088"
 idle_fg = "#00ffff"
 
 
@@ -301,15 +302,24 @@ block = "battery"
 device = "BAT1"
 interval = 30
 format = "$icon $percentage $time $power"
-full_format="$icon FULL"
-charging_format="$icon $percentage ⚡ $time"
-not_charging_format ="$icon no"
+full_format="{$icon}⚡FULL"
+charging_format="{$icon}⚡ $percentage $time"
+not_charging_format ="$icon no⚡"
 missing_format ="$icon missing"
+
+[[block]]
+block = "kdeconnect"
+format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}{$notif_count|}|"
+#format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}|"
+bat_good = 101
+[[block.click]]
+button = "left"
+cmd = "kdeconnect-app"
 
 [[block]]
 block = "time"
 interval = 60
-format = " $timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
+format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 [block.theme_overrides]
 idle_bg = "#00000088"
 idle_fg = "#00ffff"
@@ -368,6 +378,15 @@ critical_fg = "#ff00ff"
 critical_bg = "#00000088"
 
 [[block]]
+block = "music"
+#format = "$icon{$combo.str(max_w:4){$play} {$next}|}"
+format = "{$icon{$combo.str(max_w:2)}|}"
+interface_name_exclude = [".*kdeconnect.*", "mpd"]
+[[block.click]]
+button = "left"
+action = "play_pause"
+
+[[block]]
 block = "menu"
 text = "⊞"
 [[block.items]]
@@ -382,6 +401,19 @@ cmd = "i3-msg fullscreen toggle"
 [[block.items]]
 display = "[>]"
 cmd = "i3-msg move container to workspace next;i3-msg workspace next"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+
+#TODO dmenu
+#[[block]]
+#block = "custom"
+#text = "⊞"
+#command = ''' echo "{\"state\":\"$($(xset -q |rg -o 'Caps Lock:.......'|rg -ioq on) && echo Critical || echo Idle)\"}" '''
+#json = true
+#interval = 1
 #[block.theme_overrides]
-#idle_bg = "#ffffff"
-#idle_fg = "#000000"
+#idle_bg = "#00000088"
+#idle_fg = "#aaaaaa"
+#critical_fg = "#ff00ff"
+#critical_bg = "#00000088"
