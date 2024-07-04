@@ -220,19 +220,19 @@ bindsym $mod+z scratchpad show, resize set width 1200 height 900, move position 
 #bindsym $mod+shift+minus move scratchpad
 #bindsym $mod+shift+equal scratchpad show
 
-exec --no-startup-id /home/u1/code/lean-conky-config/start-lcc.sh
-#exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c /home/u1/dotfiles/conky_rss.conf --daemonize
+exec --no-startup-id ${HOME}/code/lean-conky-config/start-lcc.sh
+#exec --no-startup-id LC_ALL=zh_CN.utf8 /usr/bin/conky -c ${HOME}/dotfiles/conky_rss.conf --daemonize
 
 exec --no-startup-id GDK_SCALE=1 ibus-daemon -drx
 #exec --no-startup-id QT_DEVICE_PIXEL_RATIO=1 QT_SCALE_FACTOR=1 QT_SCREEN_SCALE_FACTORS=1 QT_AUTO_SCREEN_SCALE_FACTOR=1 ibus-daemon -drx
 #exec --no-startup-id feh --bg-fill ~/dotfiles/bg.png
-#exec --no-startup-id bash /home/u1/barriers.sh
+#exec --no-startup-id bash ${HOME}/barriers.sh
 #exec --no-startup-id xfce4-panel
 #exec --no-startup-id onboard
 exec --no-startup-id solaar -w hide
 
 exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id /home/u1/code/wlpinyin/build/wlpinyin
+exec --no-startup-id ${HOME}/code/wlpinyin/build/wlpinyin
 
 #include /etc/sway/config.d/*
 
@@ -242,7 +242,8 @@ exec --no-startup-id /home/u1/code/wlpinyin/build/wlpinyin
 
 bindsym $mod+Shift+s sticky toggle
 
-bindsym $mod+p exec grimshot copy area
+bindsym $mod+p exec grimshot --notify copy area
+bindsym $mod+shift+p exec grimshot --notify save area - | ${HOME}/dotfiles/swappy -f -
 #bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
 
