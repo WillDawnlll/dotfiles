@@ -48,6 +48,10 @@ bindsym $mod+shift+w exec --no-startup-id \
     | bemenu -ib  --fn 'terminess nerd font mono bold 30' -l 9 \
     | cut -d: -f1 | xargs -I{} swaymsg '[con_id={}]' focus
 
+# "focus_wrapping no" mean in 1st right window , $mod+right not focus to 1st left window
+#focus move only in same workspace
+focus_wrapping workspace
+
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
@@ -276,6 +280,17 @@ output DP-3 scale 1 bg ~/dotfiles/bg.png fill
 #   mode 1920x1200@90.000Hz
 #   mode 1920x1080@90.000Hz
 #}
+
+output HEADLESS-1 {
+    pos 2880,0
+    mode 2400x1080
+    #mode 1080x2400
+    #bg ~/tausta_kuva fill #002633
+    scale 1.5
+    transform 90
+}
+
+
 seat seat0 xcursor_theme pixelfun2-dracula 96
 #set $opacity 0.9
 #for_window [class=".*"] opacity $opacity
