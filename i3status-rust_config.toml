@@ -1,5 +1,6 @@
 # https://github.com/greshake/i3status-rust
-icons_format = "{icon}"
+#icons_format = "{icon}"
+icons_format = "<span font_family='sarasa mono sc nerd'>{icon}</span>"
 #invert_scrolling =true
 error_format="???"
 
@@ -15,8 +16,8 @@ idle_bg = "#00333388"
 
 [icons]
 #icons = "material"
-icons = "material-nf"
-#icons = "awesome4"
+#icons = "material-nf"
+icons = "awesome4"
 [icons.overrides]
 #memory_mem = ""
 net_vpn = "V"
@@ -332,7 +333,8 @@ action = "cycle"
 [[block]]
 block = "custom"
 #format = "$text.pango-str()"
-format = "🛇"
+format = "🔌"
+#🛇
 cycle = [
     ''' swaymsg output DP-3 enable  1> /dev/null; echo "{\"state\":\"Critical\"}" ''',
     ''' swaymsg output DP-3 disable 1> /dev/null; echo "{\"state\":\"Idle\"}" '''
@@ -340,13 +342,113 @@ cycle = [
 json = true
 interval = "once"
 [block.theme_overrides]
-idle_bg = "#00000088"
-idle_fg = "#aaaaaa"
-critical_fg = "#ff00ff"
-critical_bg = "#00000088"
+idle_fg = "#00000088"
+idle_bg = "#aaaaaa"
+critical_bg = "#ff00ff"
+critical_fg = "#00000088"
 [[block.click]]
 button = "right"
 action = "cycle"
+
+[[block]]
+block = "battery"
+#driver = ""
+#mipad2 comment no BAT1
+device = "BAT1"
+interval = 30
+format = "$icon $percentage $time $power"
+full_format="{$icon}⚡FULL"
+charging_format="{$icon}⚡ $percentage $time"
+not_charging_format ="$icon no⚡"
+missing_format ="$icon missing"
+
+#[[block]]
+#block = "kdeconnect"
+#format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}{$notif_count|}|"
+##format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}|"
+#bat_good = 101
+#[[block.click]]
+#button = "left"
+#cmd = "kdeconnect-app"
+
+[[block]]
+block = "time"
+interval = 60
+format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#00ffff"
+
+################################################################
+################################################################
+################################################################
+##laptop keyboard switch button with fg color change
+#[[block]]
+#block = "custom"
+#format = "⌨"
+#cycle = [
+#    #"xinput enable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
+#    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
+#    '''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+#    '''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+#]
+#json = true
+#interval = "once"
+#[block.theme_overrides]
+#idle_bg = "#00000088"
+#idle_fg = "#ff0000"
+#critical_bg = "#00000088"
+#critical_fg = "#00ff00"
+#[[block.click]]
+#button = "right"
+#action = "cycle"
+#
+##[[block]]
+##block = "custom"
+##format = "w⌨"
+##cycle = [
+##    #"echo 1 > /sys/devices/platform/i8042/serio0/input/input0/inhibited;cat /sys/devices/platform/i8042/serio0/input/input0/inhibited | grep 1 -q && echo 0 || echo 1⌨",
+##    '''echo 0 |sudo tee /sys/devices/platform/i8042/serio0/input/input0/inhibited; printf "{\"state\":\"%s\"}" $(cat /sys/devices/platform/i8042/serio0/input/input0/inhibited |grep 0 -q && echo Idle || echo Critical ) ''',
+##    '''echo 1 |sudo tee /sys/devices/platform/i8042/serio0/input/input0/inhibited; printf "{\"state\":\"%s\"}" $(cat /sys/devices/platform/i8042/serio0/input/input0/inhibited |grep 1 -q && echo Idle || echo Critical ) ''',
+##    #"echo 0 > /sys/devices/platform/i8042/serio0/input/input0/inhibited;cat /sys/devices/platform/i8042/serio0/input/input0/inhibited | grep 0 -q && echo 0 || echo 1⌨",
+##    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
+##    #'''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+##    #'''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+##]
+##json = true
+##interval = "once"
+##[block.theme_overrides]
+##idle_bg = "#00000088"
+##idle_fg = "#ff0000"
+##critical_bg = "#00000088"
+##critical_fg = "#00ff00"
+##[[block.click]]
+##button = "right"
+##action = "cycle"
+###/sys/devices/pci0000:00/0000:00:15.1/i2c_designware.1/i2c-2/i2c-MSFT0001:00/0018:04F3:317C.0001/input/input24
+#
+#
+##laptop touchpad switch button with fg color change
+#[[block]]
+#block = "custom"
+#format = "🖰"
+#cycle = [
+#    '''xinput enable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
+#    '''xinput disable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
+#]
+#json = true
+#interval = "once"
+#[block.theme_overrides]
+#idle_bg = "#00000088"
+#idle_fg = "#ff0000"
+#critical_bg = "#00000088"
+#critical_fg = "#00ff00"
+#[[block.click]]
+#button = "right"
+#action = "cycle"
+################################################################
+################################################################
+################################################################
 
 # keyboard CAPS lock status
 [[block]]
