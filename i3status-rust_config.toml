@@ -169,7 +169,8 @@ idle_bg = "#44444488"
 [[block]]
 block = "bluetooth"
 mac = "0C:AE:BD:69:19:0D"
-disconnected_format = "{^icon_bluetooth}E"
+#disconnected_format = "{^icon_bluetooth}E"
+disconnected_format = ""
 format = "^icon_headphones EDI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
@@ -183,7 +184,8 @@ idle_fg = "#ffffffff"
 [[block]]
 block = "bluetooth"
 mac = "9C:97:89:59:39:CF"
-disconnected_format = "{^icon_bluetooth}M"
+#disconnected_format = "{^icon_bluetooth}M"
+disconnected_format = ""
 format = "^icon_headphones MI {$battery_icon}{$percentage}"
 [block.battery_state]
 "0..20" = "critical"
@@ -253,7 +255,7 @@ idle_fg = "#00000000"
 [[block]]
 block = "sound"
 headphones_indicator = true
-format = "$icon{ $volume|}"
+format = "$icon{$volume|}"
 [[block.click]]
 button = "left"
 cmd = "pavucontrol"
@@ -290,7 +292,7 @@ action = "cycle"
 block = "backlight"
 #mipad2 comment
 device = "intel_backlight"
-format = "$icon $brightness"
+format = "$icon{$brightness}"
 [block.theme_overrides]
 idle_bg = "#00000088"
 idle_fg = "#888888"
