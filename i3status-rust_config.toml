@@ -269,16 +269,24 @@ idle_bg = "#44444488"
 #interval = "once"
 #signal = 4
 
-#monitor direction
+#current focus monitor transform direction
 [[block]]
 block = "custom"
-format = " ✠"
+format = "✠"
+#i3
+#cycle = [
+#    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate normal",
+#    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate right",
+#    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate inverted",
+#    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate left"
+#]
+
+#sway
 cycle = [
-    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate normal",
-    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate right",
-    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate inverted",
-    "xrandr --output $(xrandr -q |grep primary|cut -f1 -d' ') --rotate left"
-    #"sudo cpupower frequency-set -g performance -u 5g 1> /dev/null; printf '%s %s' $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq | numfmt --to=si --from-unit K --format '%3.0f') $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+    "swaymsg -t get_outputs --raw|jq '. | map(select(.focused == true)) | .[0].name' -r|xargs -i swaymsg output {} transform 0",
+    "swaymsg -t get_outputs --raw|jq '. | map(select(.focused == true)) | .[0].name' -r|xargs -i swaymsg output {} transform 270",
+    "swaymsg -t get_outputs --raw|jq '. | map(select(.focused == true)) | .[0].name' -r|xargs -i swaymsg output {} transform 180",
+    "swaymsg -t get_outputs --raw|jq '. | map(select(.focused == true)) | .[0].name' -r|xargs -i swaymsg output {} transform 90",
 ]
 interval = "once"
 [block.theme_overrides]
@@ -297,71 +305,45 @@ format = "$icon{$brightness}"
 idle_bg = "#00000088"
 idle_fg = "#888888"
 
-[[block]]
-block = "battery"
-#driver = ""
-#mipad2 comment no BAT1
-device = "BAT1"
-interval = 30
-format = "$icon $percentage $time $power"
-full_format="{$icon}⚡FULL"
-charging_format="{$icon}⚡ $percentage $time"
-not_charging_format ="$icon no⚡"
-missing_format ="$icon missing"
-
-[[block]]
-block = "kdeconnect"
-format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}{$notif_count|}|"
-#format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}|"
-bat_good = 101
-[[block.click]]
-button = "left"
-cmd = "kdeconnect-app"
-
-[[block]]
-block = "time"
-interval = 60
-format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
-[block.theme_overrides]
-idle_bg = "#00000088"
-idle_fg = "#00ffff"
-
-#laptop keyboard switch button with fg color change
+#monitor output power switch button with color change
+#man sway-ouput dpms: (ie. blank the screen but keep workspaces as-is)
 [[block]]
 block = "custom"
-format = "⌨"
+#format = "$text.pango-str()"
+format = "DP3"
 cycle = [
-    #"xinput enable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
-    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
-    '''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
-    '''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
+    # sway 1.8 "dmps" => "power" ?
+    ''' swaymsg output DP-3 dpms on  1> /dev/null; echo "{\"state\":\"Critical\"}" ''',
+    ''' swaymsg output DP-3 dpms off 1> /dev/null; echo "{\"state\":\"Idle\"}" '''
 ]
 json = true
 interval = "once"
 [block.theme_overrides]
 idle_bg = "#00000088"
-idle_fg = "#ff0000"
+idle_fg = "#aaaaaa"
+critical_fg = "#ff00ff"
 critical_bg = "#00000088"
-critical_fg = "#00ff00"
 [[block.click]]
 button = "right"
 action = "cycle"
 
-#laptop touchpad switch button with fg color change
+#monitor output
+#not keep workspaces
 [[block]]
 block = "custom"
-format = "🖰"
+#format = "$text.pango-str()"
+format = "🛇"
 cycle = [
-    '''xinput enable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
-    '''xinput disable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
+    ''' swaymsg output DP-3 enable  1> /dev/null; echo "{\"state\":\"Critical\"}" ''',
+    ''' swaymsg output DP-3 disable 1> /dev/null; echo "{\"state\":\"Idle\"}" '''
 ]
 json = true
 interval = "once"
 [block.theme_overrides]
 idle_bg = "#00000088"
-idle_fg = "#ff0000"
+idle_fg = "#aaaaaa"
+critical_fg = "#ff00ff"
 critical_bg = "#00000088"
-critical_fg = "#00ff00"
 [[block.click]]
 button = "right"
 action = "cycle"
