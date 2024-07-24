@@ -1,6 +1,6 @@
 # https://github.com/greshake/i3status-rust
-#icons_format = "{icon}"
-icons_format = "<span font_family='sarasa mono sc nerd'>{icon}</span>"
+icons_format = "{icon}"
+#icons_format = "<span font_family='sarasa mono sc nerd'>{icon}</span>"
 #invert_scrolling =true
 error_format="???"
 
@@ -8,7 +8,11 @@ error_format="???"
 theme = "dracula"
 [theme.overrides]
 #separator = ""
-separator = ""
+#separator = ""
+# fix https://github.com/greshake/i3status-rust/issues/246#issuecomment-1086753440
+#separator = "<span font='16'></span>"
+# fix https://github.com/greshake/i3status-rust/issues/1865 , https://grapefruit.neocities.org/hacks/i3blocks_powerline
+separator = "<span font-family='terminess nerd font mono' size='15750'></span>"
 #separator = ""
 #separator_fg = "#ffffff"
 idle_bg = "#00333388"
@@ -16,8 +20,8 @@ idle_bg = "#00333388"
 
 [icons]
 #icons = "material"
-#icons = "material-nf"
-icons = "awesome4"
+icons = "material-nf"
+#icons = "awesome4"
 [icons.overrides]
 #memory_mem = ""
 net_vpn = "V"
