@@ -147,7 +147,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-    #tray_output none
+    #tray_padding 0
+    tray_output none
     # default is dock
     mode dock
     #hidden_state hide
@@ -155,10 +156,8 @@ bar {
     #gaps 14 14
     status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_config.toml
     #status_command py3status
-    separator_symbol ""
-    #height 24
-    #font pango:terminess nerd font mono, Material Icons 16
-    height 26
+    #separator_symbol "/"
+    height 24
     font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 20
     #height 38
     #font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 26
@@ -268,8 +267,8 @@ bindsym $mod+tab focus output right
 
 workspace 1 output eDP-1
 workspace 2 output eDP-1
-workspace 3 output DP-2
-workspace 4 output DP-2
+workspace 3 output DP-3
+workspace 4 output DP-3
 
 #stretch", "fill", "fit", "center", "tile")
 output eDP-1 scale 1.5 bg ~/dotfiles/bg.png fill
@@ -339,11 +338,12 @@ include /etc/sway/config.d/*
 ################################################################################
 # swayfx
 
-blur enable
-corner_radius 30
-#titlebar_separator enable
-
-##blur_xray enable
-##default_dim_inactive 0.5
-##shadows enable
-##scratchpad_minimize enable
+#blur enable
+#corner_radius 30
+#
+##titlebar_separator enable
+#
+###blur_xray enable
+###default_dim_inactive 0.5
+###shadows enable
+###scratchpad_minimize enable
