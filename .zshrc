@@ -8,10 +8,12 @@ if [[ -o login ]]; then
 fi
 
 
-#export HTTP_PROXY="http://192.168.6.238:10809"
-#export SOCKS_PROXY="socks://192.168.6.238:10808"
-export HTTP_PROXY="http://localhost:10809"
-export SOCKS_PROXY="socks://localhost:10808"
+#https://unix.stackexchange.com/questions/212894/whats-the-right-format-for-the-http-proxy-environment-variable-caps-or-no-ca
+export http_proxy=""
+export https_proxy=""
+export socks_proxy=""
+#export http_proxy="http://127.0.0.1:20171"
+#export socks_proxy="socks://127.0.0.1:20170"
 
 LANG="en_US.utf8"
 #
@@ -44,7 +46,9 @@ if [ ! -f "$ANTIGEN" ]; then
 fi
 
 export PS1="%n@%m:%~%# "
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/games"
+# add to .profile
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/usr/games"
+export PATH="$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/cmdline-tools/latest/bin"
 source "$ANTIGEN"
 
 
@@ -123,6 +127,8 @@ alias es='es -highlight '
 alias pw='upower -i `upower -e | grep 'BAT'` '
 alias fd='fdfind '
 alias rcp='rsync -ahv --progress '
+alias pxon="export http_proxy='http://localhost:20171';export https_proxy='http://localhost:20171';export socks_proxy='http://localhost:20170';"
+alias pxoff="unset http_proxy;unset https_proxy;unset socks_proxy"
 #need apt install manpages-zh
 manzh() {
     echo "in func manzh"
@@ -182,6 +188,37 @@ t1(){
     local i
     i= getstdin
     echo ${i}
+}
+update-repo() {
+    for source in "$@"; do
+        sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/${source}" \
+        -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+    done
+}
+
+# https://gist.github.com/ayubmalik/149e2c7f28104f61cc1c862fe9834793?permalink_comment_id=4574200#gistcomment-4574200
+gtr() {
+  sl=$1
+  tl=$2
+  shift
+  qry="$@"
+  ua='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
+  base_url='https://translate.googleapis.com/translate_a/single'
+
+  resp="$(curl \
+    --silent \
+    --get \
+    --user-agent "$ua" \
+    --data client=gtx \
+    --data sl="$sl" \
+    --data tl="$tl" \
+    --data dt=t \
+    --data-urlencode q="$qry" \
+    "$base_url")"
+  echo "$resp" |
+      sed 's/","/\n/g' |
+      sed -E 's/\[|\]|"//g' |
+      head -1
 }
 
 setopt vi autocd autopushd pushdignoredups pushdminus
