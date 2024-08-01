@@ -354,35 +354,6 @@ critical_fg = "#00000088"
 button = "right"
 action = "cycle"
 
-[[block]]
-block = "battery"
-#driver = ""
-#mipad2 comment no BAT1
-device = "BAT1"
-interval = 30
-format = "$icon $percentage $time $power"
-full_format="{$icon}⚡FULL"
-charging_format="{$icon}⚡ $percentage $time"
-not_charging_format ="$icon no⚡"
-missing_format ="$icon missing"
-
-#[[block]]
-#block = "kdeconnect"
-#format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}{$notif_count|}|"
-##format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}|"
-#bat_good = 101
-#[[block.click]]
-#button = "left"
-#cmd = "kdeconnect-app"
-
-[[block]]
-block = "time"
-interval = 60
-format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
-[block.theme_overrides]
-idle_bg = "#00000088"
-idle_fg = "#00ffff"
-
 #laptop keyboard switch button with fg color change
 [[block]]
 block = "custom"
@@ -454,14 +425,43 @@ idle_fg = "#aaaaaa"
 critical_fg = "#ff00ff"
 critical_bg = "#00000088"
 
+#[[block]]
+#block = "music"
+##format = "$icon{$combo.str(max_w:4){$play} {$next}|}"
+#format = "{$icon{$combo.str(max_w:2)}|}"
+#interface_name_exclude = [".*kdeconnect.*", "mpd"]
+#[[block.click]]
+#button = "left"
+#action = "play_pause"
+
 [[block]]
-block = "music"
-#format = "$icon{$combo.str(max_w:4){$play} {$next}|}"
-format = "{$icon{$combo.str(max_w:2)}|}"
-interface_name_exclude = [".*kdeconnect.*", "mpd"]
-[[block.click]]
-button = "left"
-action = "play_pause"
+block = "battery"
+#driver = ""
+#mipad2 comment no BAT1
+device = "BAT1"
+interval = 30
+format = "$icon $percentage $time $power"
+full_format="{$icon}⚡FULL"
+charging_format="{$icon}⚡ $percentage $time"
+not_charging_format ="$icon no⚡"
+missing_format ="$icon missing"
+
+#[[block]]
+#block = "kdeconnect"
+#format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}{$notif_count|}|"
+##format = "{$icon}{$name}{$bat_icon{$bat_charge}|}{$notif_icon |}|"
+#bat_good = 101
+#[[block.click]]
+#button = "left"
+#cmd = "kdeconnect-app"
+
+[[block]]
+block = "time"
+interval = 60
+format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#00ffff"
 
 [[block]]
 block = "menu"
