@@ -74,8 +74,8 @@ idle_fg = "#ffffff"
 block = "cpu"
 #interval = 10
 #format = "$barchart {$boost|}$frequency.eng(w:3,hide_unit:true)~"
-format = "{$boost|}$utilization x̅{$frequency.eng(w:3,hide_unit:true)}"
-format_alt = "{$boost|}$utilization ↑{$max_frequency.eng(w:3,hide_unit:true)}"
+format = "$utilization x̅{$frequency.eng(w:3,hide_unit:true)}"
+format_alt = "$utilization ↑{$max_frequency.eng(w:3,hide_unit:true)}"
 #format = "{$icon}$utilization $frequency.eng(hide_unit:true)"
 [block.theme_overrides]
 idle_bg = "#00000088"
