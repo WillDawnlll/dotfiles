@@ -383,76 +383,63 @@ format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 idle_bg = "#00000088"
 idle_fg = "#00ffff"
 
-################################################################
-################################################################
-################################################################
-##laptop keyboard switch button with fg color change
-#[[block]]
-#block = "custom"
-#format = "⌨"
+#laptop keyboard switch button with fg color change
+[[block]]
+block = "custom"
+#format = "$text.pango-str()"
+format = "⌨"
+#i3
 #cycle = [
 #    #"xinput enable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
 #    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
 #    '''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
 #    '''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
 #]
-#json = true
-#interval = "once"
-#[block.theme_overrides]
-#idle_bg = "#00000088"
-#idle_fg = "#ff0000"
-#critical_bg = "#00000088"
-#critical_fg = "#00ff00"
-#[[block.click]]
-#button = "right"
-#action = "cycle"
-#
-##[[block]]
-##block = "custom"
-##format = "w⌨"
-##cycle = [
-##    #"echo 1 > /sys/devices/platform/i8042/serio0/input/input0/inhibited;cat /sys/devices/platform/i8042/serio0/input/input0/inhibited | grep 1 -q && echo 0 || echo 1⌨",
-##    '''echo 0 |sudo tee /sys/devices/platform/i8042/serio0/input/input0/inhibited; printf "{\"state\":\"%s\"}" $(cat /sys/devices/platform/i8042/serio0/input/input0/inhibited |grep 0 -q && echo Idle || echo Critical ) ''',
-##    '''echo 1 |sudo tee /sys/devices/platform/i8042/serio0/input/input0/inhibited; printf "{\"state\":\"%s\"}" $(cat /sys/devices/platform/i8042/serio0/input/input0/inhibited |grep 1 -q && echo Idle || echo Critical ) ''',
-##    #"echo 0 > /sys/devices/platform/i8042/serio0/input/input0/inhibited;cat /sys/devices/platform/i8042/serio0/input/input0/inhibited | grep 0 -q && echo 0 || echo 1⌨",
-##    #"xinput disable \"AT Translated Set 2 keyboard\";xinput list \"AT Translated Set 2 keyboard\" |grep disabled -q && echo 0 || echo 1⌨",
-##    #'''xinput enable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
-##    #'''xinput disable "AT Translated Set 2 keyboard"; printf "{\"state\":\"%s\"}" $(xinput list "AT Translated Set 2 keyboard" |grep disabled -q && echo Idle || echo Critical ) ''',
-##]
-##json = true
-##interval = "once"
-##[block.theme_overrides]
-##idle_bg = "#00000088"
-##idle_fg = "#ff0000"
-##critical_bg = "#00000088"
-##critical_fg = "#00ff00"
-##[[block.click]]
-##button = "right"
-##action = "cycle"
-###/sys/devices/pci0000:00/0000:00:15.1/i2c_designware.1/i2c-2/i2c-MSFT0001:00/0018:04F3:317C.0001/input/input24
-#
-#
-##laptop touchpad switch button with fg color change
-#[[block]]
-#block = "custom"
-#format = "🖰"
+
+# sway
+#command ='''dev='"1:1:AT_Translated_Set_2_keyboard"'; swaymsg input "$dev" events toggle -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' '''
+cycle =[
+    '''dev='"1:1:AT_Translated_Set_2_keyboard"'; swaymsg input "$dev" events enabled -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' ''',
+    '''dev='"1:1:AT_Translated_Set_2_keyboard"'; swaymsg input "$dev" events disabled -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' '''
+]
+json = true
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#ff0000"
+critical_bg = "#00000088"
+critical_fg = "#00ff00"
+[[block.click]]
+button = "right"
+action = "cycle"
+
+#laptop touchpad switch button with fg color change
+[[block]]
+block = "custom"
+format = "🖰"
+#i3
 #cycle = [
 #    '''xinput enable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
 #    '''xinput disable "MSFT0001:00 04F3:317C Touchpad"; printf "{\"state\":\"%s\"}" $(xinput list "MSFT0001:00 04F3:317C Touchpad" |grep disabled -q && echo Idle || echo Critical ) ''',
 #]
-#json = true
-#interval = "once"
-#[block.theme_overrides]
-#idle_bg = "#00000088"
-#idle_fg = "#ff0000"
-#critical_bg = "#00000088"
-#critical_fg = "#00ff00"
-#[[block.click]]
-#button = "right"
-#action = "cycle"
-################################################################
-################################################################
-################################################################
+
+# sway
+# command will run once, toggle disable dev in boot
+#command ='''dev='"1267:12668:MSFT0001:00_04F3:317C_Touchpad"'; swaymsg input "$dev" events toggle -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' '''
+cycle = [
+    '''dev='"1267:12668:MSFT0001:00_04F3:317C_Touchpad"'; swaymsg input "$dev" events enabled -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' ''',
+    '''dev='"1267:12668:MSFT0001:00_04F3:317C_Touchpad"'; swaymsg input "$dev" events disabled -q; swaymsg -t get_inputs | jq ".[] | select(.identifier == $dev) | .libinput.send_events" |grep disabled -q && echo '{"state":"Idle"}' || echo '{"state":"Critical"}' '''
+]
+json = true
+interval = "once"
+[block.theme_overrides]
+idle_bg = "#00000088"
+idle_fg = "#ff0000"
+critical_bg = "#00000088"
+critical_fg = "#00ff00"
+[[block.click]]
+button = "right"
+action = "cycle"
 
 # keyboard CAPS lock status
 [[block]]
