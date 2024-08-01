@@ -59,16 +59,16 @@ format = "{$icon}{$ssid|$device} $ip"
 [block.theme_overrides]
 idle_fg = "#ffffff"
 
-[[block]]
-block = "service_status"
-service = "v2raya"
-active_format = "^icon_net_vpn"
-inactive_format = "^icon_net_vpn"
-[block.theme_overrides]
-idle_fg = "#00ff00"
-idle_bg = "#00333388"
-critical_fg = "#777777"
-critical_bg = "#00333388"
+#[[block]]
+#block = "service_status"
+#service = "v2raya"
+#active_format = "^icon_net_vpn"
+#inactive_format = "^icon_net_vpn"
+#[block.theme_overrides]
+#idle_fg = "#00ff00"
+#idle_bg = "#00333388"
+#critical_fg = "#777777"
+#critical_bg = "#00333388"
 
 [[block]]
 block = "cpu"
