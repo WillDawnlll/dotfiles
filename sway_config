@@ -147,6 +147,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
+    id 1
     #tray_padding 0
     tray_output none
     # default is dock
@@ -178,6 +179,22 @@ bar {
         inactive_workspace #00000000 #00000000 #00bbbb
         urgent_workspace   #2f343a #ffff00 #ff0000
         binding_mode       #2f343a #ffff00 #ff0000
+    }
+}
+
+bar {
+    id bar_menu
+    tray_output none
+    position top
+    mode hide
+    workspace_buttons no
+    height 24
+    font pango:terminess nerd font mono, Material Icons bold, LXGW WenKai GB Screen R 20
+    status_command $HOME/.cargo/bin/i3status-rs $HOME/dotfiles/i3status-rust_menu_config.toml
+    colors {
+        background #00000000
+        statusline #ffffff
+        separator #ffffff
     }
 }
 #bindsym $mod+q exec "i3-msg bar mode dock"

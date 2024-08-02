@@ -463,21 +463,37 @@ format = "$timestamp.datetime(f:'%a %m%d %R', l:zh_CN)"
 idle_bg = "#00000088"
 idle_fg = "#00ffff"
 
+#[[block]]
+#block = "menu"
+#text = "⊞"
+#[[block.items]]
+#display = "[X]"
+#cmd = "i3-msg kill"
+#[[block.items]]
+#display = "[F]"
+#cmd = "i3-msg floating toggle"
+#[[block.items]]
+#display = "[^]"
+#cmd = "i3-msg fullscreen toggle"
+#[[block.items]]
+#display = "[>]"
+#cmd = "i3-msg move container to workspace next;i3-msg workspace next"
+#[block.theme_overrides]
+#idle_bg = "#000000"
+#idle_fg = "#00ffff"
+
 [[block]]
-block = "menu"
-text = "⊞"
-[[block.items]]
-display = "[X]"
-cmd = "i3-msg kill"
-[[block.items]]
-display = "[F]"
-cmd = "i3-msg floating toggle"
-[[block.items]]
-display = "[^]"
-cmd = "i3-msg fullscreen toggle"
-[[block.items]]
-display = "[>]"
-cmd = "i3-msg move container to workspace next;i3-msg workspace next"
+block = "toggle"
+format = "⊞"
+command_state = "false"
+#command_on = "notify-send on"
+#command_off = "notify-send off"
+command_on = "i3-msg bar hidden_state show bar_menu"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "good"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"

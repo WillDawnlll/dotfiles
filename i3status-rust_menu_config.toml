@@ -1,0 +1,114 @@
+# sway_config bar id bar_menu
+# https://github.com/greshake/i3status-rust
+# https://github.com/AndreasBackx/waycorner
+icons_format = "{icon}"
+error_format="???"
+
+[theme]
+theme = "dracula"
+[theme.overrides]
+idle_bg = "#00ffff"
+idle_fg = "#00000088"
+critical_fg = "#00000088"
+critical_bg = "#00ffff"
+#separator = ""
+#separator = ""
+separator = "<span font-family='terminess nerd font mono' size='15750'></span>"
+
+[icons]
+#icons = "material"
+icons = "material-nf"
+#icons = "awesome4"
+
+[[block]]
+block = "focused_window"
+[block.format]
+#full = "$title.str    |"
+full = "$title.str(max_w:10)    |"
+[block.theme_overrides]
+idle_fg = "#000000"
+idle_bg = "#00ffff"
+
+[[block]]
+block = "toggle"
+format = "[<]"
+command_state = "false"
+command_on = "i3-msg move container to workspace prev;i3-msg workspace prev"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "idle"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"
+
+[[block]]
+block = "toggle"
+format = "[>]"
+command_state = "false"
+command_on = "i3-msg move container to workspace next;i3-msg workspace next"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "idle"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"
+
+[[block]]
+block = "toggle"
+format = "[~]"
+command_state = "false"
+command_on = "i3-msg floating toggle"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "good"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"
+
+[[block]]
+block = "toggle"
+format = "[F]"
+command_state = "false"
+command_on = "i3-msg fullscreen toggle"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "good"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"
+
+[[block]]
+block = "toggle"
+format = "[X]"
+command_state = "false"
+command_on = "i3-msg kill"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "good"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#ff0000"
+good_fg = "#000000"
+
+[[block]]
+block = "toggle"
+format = "⊞"
+command_state = "false"
+command_on = "i3-msg bar hidden_state hide bar_menu"
+command_off = ""
+#state_on = "idle" #ignore
+state_off = "idle"
+[block.theme_overrides]
+idle_bg = "#000000"
+idle_fg = "#00ffff"
+good_bg = "#00ffff"
+good_fg = "#000000"
