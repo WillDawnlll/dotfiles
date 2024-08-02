@@ -1,0 +1,21 @@
+#https://github.com/AndreasBackx/waycorner
+#cargo install waycorner --locked
+#ln -s ${HOME}/dotfiles/waycorner_config.toml ${HOME}/.config/waycorner/config.toml
+
+[left]
+#enter_command = [ "notify-send", "enter" ]
+#exit_command = [ "notify-send", "exit" ]
+enter_command=["bash","-c","swaymsg bar hidden_state show bar_menu"]
+exit_command=["bash","-c","echo 123"] #not used
+#exit_command=["bash","-c","swaymsg bar hidden_state hide bar_menu"]
+# - for corners: top_left, top_right, bottom_right, and bottom_left;
+# - for edges: top, bottom, right, left.
+#locations = ["bottom_right", "bottom_left"]  # default
+locations = ["top_right"]
+size = 10
+margin = 0
+timeout_ms = 250  # default
+color = "#FFFF0000"  # default
+
+[left.output]
+#description = "eDP-1"  # empty means all outputs

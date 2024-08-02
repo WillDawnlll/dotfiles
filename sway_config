@@ -182,6 +182,9 @@ bar {
     }
 }
 
+#show bar in fullscreen window, with window control button (bar overlay mode no input)
+#use waycorner auto show this bar when cursor move to top_right corner in monitor
+#./waycorner_config.toml
 bar {
     id bar_menu
     tray_output none
@@ -253,6 +256,9 @@ exec --no-startup-id solaar -w hide
 
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id ${HOME}/code/wlpinyin/build/wlpinyin
+
+#waycorner_config.toml
+exec --no-startup-id ${HOME}/.cargo/bin/waycorner
 
 #include /etc/sway/config.d/*
 
