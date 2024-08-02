@@ -481,16 +481,3 @@ cmd = "i3-msg move container to workspace next;i3-msg workspace next"
 [block.theme_overrides]
 idle_bg = "#000000"
 idle_fg = "#00ffff"
-
-#TODO dmenu
-#[[block]]
-#block = "custom"
-#text = "⊞"
-#command = ''' echo "{\"state\":\"$($(xset -q |rg -o 'Caps Lock:.......'|rg -ioq on) && echo Critical || echo Idle)\"}" '''
-#json = true
-#interval = 1
-#[block.theme_overrides]
-#idle_bg = "#00000088"
-#idle_fg = "#aaaaaa"
-#critical_fg = "#ff00ff"
-#critical_bg = "#00000088"
