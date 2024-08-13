@@ -268,8 +268,16 @@ exec --no-startup-id ${HOME}/.cargo/bin/waycorner
 
 bindsym $mod+Shift+s sticky toggle
 
-bindsym $mod+p exec grimshot --notify copy area
-bindsym $mod+shift+p exec grimshot --notify save area - | ${HOME}/dotfiles/swappy -f -
+#bindsym $mod+p exec grimshot --notify copy area
+bindsym $mod+p exec grimshot --notify save area - | ${HOME}/dotfiles/swappy -f -
+#ocr
+bindsym $mod+shift+p exec grimshot --notify save area -|tesseract - - -l eng|wl-copy
+#ocr goldendict
+bindsym $mod+shift+d exec goldendict $( grimshot --notify save area -|tesseract - - -l eng)
+#ocr chinese
+#grimshot --notify save area -|tesseract - - -l chi_sim|wl-copy
+
+
 #bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
 
