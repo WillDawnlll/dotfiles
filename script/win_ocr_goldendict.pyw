@@ -1,11 +1,27 @@
-import win32clipboard
-import pytesseract
-import io,subprocess
-#import io,os
+#!/usr/bin/env python3
+import io,subprocess,os
+
+# True  -> screenshot show OCR result edit window 
+# False -> screenshot then goldendict popup
+IS_GUI=True
+IS_WIN= os.name == 'nt'
 
 strocr=""
+goldendict_win=r'C:\\bin\GoldenDict-1.5.0_.QT_5123.64bit\GoldenDict\GoldenDict.exe "'
+goldendict_linux=r'goldendict "'
+goldendict_path=goldendict_win if IS_WIN else goldendict_linux  
 
-def getOCR():
+#linux wayland
+def getOCR_wl():
+    str1=subprocess.check_output(r'grimshot --notify save area -|tesseract - - -l chi_sim',shell=True).decode('utf8')
+    r=str1.replace('-\n','').replace('-\r','').replace('\n',' ').replace('\r',' ')
+    print(goldendict_linux+r+'"')
+    subprocess.call(goldendict_linux+r+'"',shell=True)
+    return r
+
+def getOCR_win():
+    import win32clipboard
+    import pytesseract
     subprocess.call(r'C:\\Windows\System32\SnippingTool.exe /clip',shell=True)
     #os.system(r'C:\\Windows\System32\SnippingTool.exe /clip')
     
@@ -23,21 +39,17 @@ def getOCR():
     pytesseract.pytesseract.tesseract_cmd ="C:/Program Files/Tesseract-OCR/tesseract.exe"
     str1=pytesseract.image_to_string(image)
     r=str1.replace('-\n','').replace('-\r','').replace('\n',' ').replace('\r',' ')
-    print(r'C:\\bin\GoldenDict-1.5.0_.QT_5123.64bit\GoldenDict\GoldenDict.exe \"'+r+'"')
-    subprocess.call(r'C:\\bin\GoldenDict-1.5.0_.QT_5123.64bit\GoldenDict\GoldenDict.exe "'+r+'"',shell=True)
+    print(goldendict_win+r+'"')
+    subprocess.call(goldendict_win+r+'"',shell=True)
     return r
 
 
-    #strocr=pytesseract.image_to_string(image)
-    #print("C:\\bin\\GoldenDict-1.5.0_.QT_5123.64bit\\GoldenDict\\GoldenDict.exe "+strocr)
-    #subprocess.call(r'C:\\bin\GoldenDict-1.5.0_.QT_5123.64bit\GoldenDict\GoldenDict.exe "'+strocr+'"',shell=True)
-
+getOCR=getOCR_win if IS_WIN else getOCR_wl
 strocr=getOCR()
-
-
+if not IS_GUI:
+    os._exit(0)
 
 #GUI WINDOW
-
 
 from tkinter import *
 root=Tk()
@@ -50,7 +62,7 @@ o.insert("1.0",strocr)
 def sed2dict():
     #global o
     selstr=o.get(*o.tag_ranges("sel"))
-    subprocess.call(r'C:\\bin\GoldenDict-1.5.0_.QT_5123.64bit\GoldenDict\GoldenDict.exe "'+selstr+'"',shell=True)
+    subprocess.call(goldendict_path+selstr+'"',shell=True)
 
 bo=Button(root,text='ocr2dict',command=lambda :o.insert("1.0",getOCR()+'\n\n'))
 bo.pack()
