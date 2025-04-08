@@ -236,9 +236,17 @@ function s:CONFIG_vim_base() "{{{
 
     hi visual  gui=reverse cterm=reverse
     "hi visual  guibg=#555555 ctermbg=555 term=reverse
-    hi Search  gui=bold guifg=black guibg=white
+    "old
+    "hi Search  gui=bold guifg=black guibg=white 
+    "new, for wsl
+    hi Search  gui=bold guifg=white guibg=black
+
     hi CurSearch  gui=bold guifg=#000000 guibg=#FD971f 
-    hi IncSearch  gui=bold guifg=black guibg=white
+    "old
+    "hi IncSearch  gui=bold guifg=black guibg=white
+    "new, for wsl
+    hi IncSearch  gui=bold guifg=white guibg=black
+
     "term=reverse ctermbg=3
     set hlsearch 
     set incsearch
@@ -299,8 +307,9 @@ endif
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
     "temp {{{
+    Plug 'brglng/vim-im-select'
     "Plug 'markmap/coc-markmap'
-    Plug 'github/copilot.vim',
+    Plug 'github/copilot.vim'
     Plug 'jeetsukumaran/vim-filebeagle'
     "Plug 'preservim/nerdtree'
     "Plug 'justinmk/vim-dirvish'
@@ -346,7 +355,7 @@ function s:CONFIG_vimplug() "{{{
     "Plug 'voldikss/vim-floaterm'
     Plug 'skywind3000/asyncrun.vim'
     Plug 'voldikss/vim-translator'
-    "Plug 'plasticboy/vim-markdown'
+    Plug 'plasticboy/vim-markdown'
     "}}}
 
     "code base {{{
@@ -360,6 +369,7 @@ function s:CONFIG_vimplug() "{{{
     "Plug 'voldikss/coc-floaterm', {'do': 'yarn install --frozen-lockfile'}
     "Plug 'jackguo380/vim-lsp-cxx-highlight'
     "Plug 'm-pilia/vim-ccls'
+    let g:polyglot_disabled = ['markdown']
     Plug 'sheerun/vim-polyglot' " 各语言语法高亮规则  缩进规则
     "Plug 'uiiaoo/java-syntax.vim'
     "Plug 'OrangeT/vim-csharp'
@@ -984,6 +994,12 @@ function s:CONFIG_au_filetype() "{{{
     autocmd FileType markdown setlocal foldlevel=0
     "autocmd FileType markdown setlocal foldlevel=99
     "let g:vim_markdown_strikethrough = 1
+    autocmd FileType markdown set synmaxcol =0 "超出后影响后续 所有行 高亮
+
+    "" 控制 ** __ 符号颜色
+    autocmd FileType markdown highlight mkdBold guifg=#999999 ctermfg=208  
+    " 控制粗体内容颜色
+    autocmd FileType markdown highlight htmlBold guifg=#ff9900 ctermfg=208  
 
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
@@ -1236,6 +1252,10 @@ function s:CONFIG_map() "{{{
 
     endif
     " }}}
+
+    " EasyAlign
+    " markdown table
+    nnoremap  <Leader>tt :%EasyAlign *\|<cr>
 endfunction "}}}
 
 function s:CONFIG_cmd() "{{{
@@ -2001,6 +2021,9 @@ if !s:is_win
     nmap <F3> :call Test()<cr>
 endif
 
+"vim-im-select
+autocmd InsertEnter * AsyncRun /mnt/d/tools/im-select.exe 2052
+autocmd InsertLeave * AsyncRun /mnt/d/tools/im-select.exe 1033
 " }}}
 
 
