@@ -997,9 +997,10 @@ function s:CONFIG_au_filetype() "{{{
     autocmd FileType markdown set synmaxcol =0 "超出后影响后续 所有行 高亮
 
     "" 控制 ** __ 符号颜色
-    autocmd FileType markdown highlight mkdBold guifg=#999999 ctermfg=208  
+    "autocmd FileType markdown highlight mkdBold guifg=#999999 ctermfg=208  
     " 控制粗体内容颜色
-    autocmd FileType markdown highlight htmlBold guifg=#ff9900 ctermfg=208  
+    autocmd FileType markdown highlight htmlBold guifg=cyan ctermfg=cyan
+    autocmd FileType markdown highlight htmlItalic guifg=green ctermfg=green
 
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
