@@ -259,7 +259,7 @@ function s:CONFIG_vim_base() "{{{
     " * register (select text) system clipboard
     "set clipboard=unnamed
     " + register : x window clipboard
-    set clipboard=unnamedplus
+    set clipboard=unnamed,unnamedplus
 
     " markdown context always auto fold , this disable
     set foldlevelstart=0
@@ -286,7 +286,8 @@ function s:CONFIG_vim_base() "{{{
     set wildchar=<Tab> wildmenu wildmode=full
 
     set  report       =0
-    set  synmaxcol    =200
+    set  synmaxcol    =2000
+    "set  synmaxcol    =0
 
     set modeline
     "set cole=0
@@ -916,11 +917,11 @@ function s:CONFIG_plugs_temp() "{{{
     let g:w3m#search_engine = 'http://search.yahoo.co.jp/search?search.x=1&fr=top_ga1_sa_124&tid=top_ga1_sa_124&ei=' . &encoding . '&aq=&oq=&p='
     "}}}
     "mark load {{{
-    let MARK_RSRCAAAA=[', ''[0-9a-f]\{7,12}'',',', ''08\d\+''',' ''\u\l\{5,}''', '001f8b08''']
-    let MARK_DNLS1 =['^#\d\+', '^#1[^0-9]', '#1\n', '^#1"', '"\d\+ ', ':[a-zA-Z0-9/_+=]\{20}"','#[!!!]',':\(\w\{1,3}[^a-zA-Z0-9]\)\{5}' ]
-    let MARK_HRSTR =['\w\{4,}']
-    let MARK_SSCLI =['field\c\|字段','type\c\|类型','class\c','.* | \d\+','^#\+ .*','TypeHandle\|TypeDef\|TypeDesc','sign\c\|符号','token\c\|令牌','\w\+TypeHandle\w\+','LoadType\w\+']
-    let MARK_MONO_TRACE =['| \w.* (', '.*managed-to-native.*', '.*runtime-invoke.*', '\<LEAVE\>', '\<ENTER\>']
+    let g:MARK_RSRCAAAA=[', ''[0-9a-f]\{7,12}'',',', ''08\d\+''',' ''\u\l\{5,}''', '001f8b08''']
+    let g:MARK_DNLS1 =['^#\d\+', '^#1[^0-9]', '#1\n', '^#1"', '"\d\+ ', ':[a-zA-Z0-9/_+=]\{20}"','#[!!!]',':\(\w\{1,3}[^a-zA-Z0-9]\)\{5}' ]
+    let g:MARK_HRSTR =['\w\{4,}']
+    let g:MARK_SSCLI =['field\c\|字段','type\c\|类型','class\c','.* | \d\+','^#\+ .*','TypeHandle\|TypeDef\|TypeDesc','sign\c\|符号','token\c\|令牌','\w\+TypeHandle\w\+','LoadType\w\+']
+    let g:MARK_MONO_TRACE =['| \w.* (', '.*managed-to-native.*', '.*runtime-invoke.*', '\<LEAVE\>', '\<ENTER\>']
     "}}}
     "vimspector {{{
     "let g:vimspector_enable_mappings = 'HUMAN'
