@@ -685,6 +685,7 @@ function s:CONFIG_plugs_cocconfig() "{{{
                 \"diagnostic.checkCurrentLine": v:true,
                 \"inlayHint.enable": v:false,
                 \"python.jediEnabled": v:true,
+                \"python.analysis.extraPaths": [$HOME."/code/py"],
                 \"rust-analyzer.server.path": $HOME."/.cargo/bin/rust-analyzer",
                 \"rust-analyzer.updates.checkOnStartup": v:false
                 \}
