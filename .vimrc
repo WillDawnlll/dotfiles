@@ -1004,6 +1004,12 @@ function s:CONFIG_au_filetype() "{{{
     " 控制粗体内容颜色
     autocmd FileType markdown highlight htmlBold guifg=cyan ctermfg=cyan
     autocmd FileType markdown highlight htmlItalic guifg=green ctermfg=green
+    "autocmd FileType markdown highlight mkdItalic guifg=green ctermfg=green
+    autocmd FileType markdown syntax clear mkdItalic " 避免mkdItalic影响普通文字中的_,多行时显示错乱, Bold 使用两个 __ ,一般无影响
+    autocmd FileType markdown highlight mkdItalic NONE
+    " markdown checkbox highlight
+    autocmd FileType markdown let MARK_MKBOX =['\[TODO].*','\[]','\[x]','\[!!!].*']
+    autocmd FileType markdown MarkLoad MKBOX
 
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
