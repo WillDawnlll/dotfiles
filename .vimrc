@@ -7,6 +7,7 @@ let g:mapleader ="\<space>"
 
 " 1/0 for bool v:true/v:false 
 let s:is_win = has('win32')
+let s:is_mac = has('osxdarwin')
 let s:v = $HOME.(s:is_win ? '\vimfiles' : '/.vim')
 let s:is_work = 0
 let s:is_cursor_col = 1
@@ -1009,6 +1010,9 @@ function s:CONFIG_au_filetype() "{{{
         "autocmd FileType python setlocal path+=C:/Users/test/AppData/Local/Programs/Python/Python39/Lib/
         autocmd FileType python setlocal path+=C:/Python27/Lib
         autocmd FileType python let $PYTHONPATH ='D:\code\pytest\work'
+    elseif s:is_mac
+        echo 123
+        autocmd FileType python let $PYTHONPATH =$HOME.'/code/py'
     else
         autocmd FileType c setlocal et
         autocmd FileType python let $PYTHONPATH =$HOME.'/code/py/pytest/work'
@@ -1498,6 +1502,14 @@ command Pyt call quickui#terminal#open('python', opts)
 
 "function s:CONFIG_hr() "{{{
 "}}}
+"
+function s:CONFIG_txkn() "{{{
+    let g:MARK_TICL = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
+    "TODO
+    "let g:MARK_datanew = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
+    echo "[!!!] CONFIG_txkn loaded"
+
+endfunction "}}}
 
 "custom func
 "{{{
@@ -2023,8 +2035,15 @@ if !s:is_win
 endif
 
 "vim-im-select
-autocmd InsertEnter * AsyncRun /mnt/d/tools/im-select.exe 2052
-autocmd InsertLeave * AsyncRun /mnt/d/tools/im-select.exe 1033
+
+if s:is_mac
+    "autocmd InsertEnter * AsyncRun im-select com.apple.inputmethod.SCIM.Shuangpin
+    autocmd InsertLeave * AsyncRun im-select com.apple.keylayout.ABC
+endif
+if s:is_win
+    autocmd InsertEnter * AsyncRun /mnt/d/tools/im-select.exe 2052
+    autocmd InsertLeave * AsyncRun /mnt/d/tools/im-select.exe 1033
+endif
 " }}}
 
 
@@ -2051,6 +2070,10 @@ if s:is_win
     source ~/vimrc/winwork.vimrc
     "call <sid>CONFIG_hr()
     source ~/vimrc/misc.vimrc
+endif
+
+if s:is_mac
+    call <sid>CONFIG_txkn()
 endif
 "TODO try catch , source empty vimrc , no plug mode restart vim
 "TEMP
