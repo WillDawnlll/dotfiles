@@ -121,10 +121,20 @@ function s:CONFIG_vim_base() "{{{
 
     " 不要将消息传递给|插入完成菜单|。 
     set shortmess+=c 
-    set noswapfile
-    set nobackup
-    set nowritebackup
-    set noundofile
+    "set noswapfile
+    set swapfile
+    set directory=$HOME/.vim/bkfiles/swp//
+    "set noundofile
+    set undofile
+    set undodir=$HOME/.vim/bkfiles/undo//
+    set backup
+    set backupdir=$HOME/.vim/bkfiles/backup//
+    "set nobackup
+    set writebackup
+    "set nowritebackup
+    "set patchmode=.orig
+    "set views
+    set viewdir=$HOME/.vim/view//
 
     "'ts' 是制表符的显示方式； 'sts' 是按下 Tab 键时要插入多少个"空格"； 'sw' 是每个缩进级别使用多少个"空格"； 'et' 是使用空格还是制表符； 'sta' 允许您在行首按 Tab 键时插入 'sw'"空格"
     set et
