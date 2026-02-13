@@ -225,6 +225,32 @@ gtr() {
       head -1
 }
 
+#hs
+_hs_dep() {
+    command -v "${1:?}" >/dev/null || { HS_ERR "Not found: ${1} [Install with ${CDC}bin ${1}${CDR} first]"; return 255; }
+}
+HS_ERR()  { echo -e >&2  "${CR}ERROR: ${CDR}$*${CN}"; }
+HS_WARN() { echo -e >&2  "${CY}WARN: ${CDM}$*${CN}"; }
+HS_INFO() { echo -e >&2 "${CDG}INFO: ${CDM}$*${CN}"; }
+dl() { 
+    local opts=()
+    [ -n "$UNSAFE" ] && opts=("-k")
+    curl -fsSL "${opts[@]}" --connect-timeout 7 --retry 2 "${1:?}"
+}
+xanew() {
+    [ $# -ne 0 ] && { HS_ERR "Parameters not supported"; return 255; }
+    awk 'hit[$0]==0 {hit[$0]=1; print $0}' # "${arr[@]}"
+}
+sub() {
+    [ $# -ne 1 ] && { HS_ERR "sub <domain-name>"; return 255; }
+    _hs_dep jq || return
+    #_hs_dep anew || return
+    unalias anew &>/dev/null
+    which anew &>/dev/null || alias anew=xanew
+    dl "https://crt.sh/?q=${1:?}&output=json" | jq -r '.[].common_name,.[].name_value' | xanew | sed 's/^\*\.//g' | tr '[:upper:]' '[:lower:]'
+    #dl "https://ip.thc.org/sb/${1:?}"
+}
+
 setopt vi autocd autopushd pushdignoredups pushdminus
 
 HISTFILE="$HOME/.zsh_history"
