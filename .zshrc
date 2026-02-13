@@ -82,6 +82,9 @@ autoload -U +X bashcompinit && bashcompinit
 autoload -U compinit  && compinit
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}  
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+#zstyle ':completion:*:*:qsv:*' completer _complete _files
+compdef _files qsv
+eval "$(zoxide init zsh)"
 
 if [[ $(uname -o) == "Android" ]] ;then
     MYIP=" "$(ifconfig 2>/dev/null| grep 'inet '| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{print $2}')
@@ -249,7 +252,11 @@ bindkey '^r' history-incremental-search-backward
 #for qt5 apps like : vlc
 export QT_DEVICE_PIXEL_RATIO=1
 
-. ~/z/z.sh || (echo "no ~/z/z.sh , clone https://github.com/rupa/z ";exit 1);
+if [ ! -x "$(which zoxide)" ]; then
+    . ~/z/z.sh || (echo "no ~/z/z.sh , clone https://github.com/rupa/z ";exit 1);
+else
+    echo "z == zoxide"
+fi
 
 #term="$(cat /proc/$PPID/comm)"
 #if [[ $term = "st" ]]; then
