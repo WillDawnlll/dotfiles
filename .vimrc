@@ -1033,7 +1033,6 @@ function s:CONFIG_au_filetype() "{{{
         autocmd FileType python setlocal path+=C:/Python27/Lib
         autocmd FileType python let $PYTHONPATH ='D:\code\pytest\work'
     elseif s:is_mac
-        echo 123
         autocmd FileType python let $PYTHONPATH =$HOME.'/code/py'
     else
         autocmd FileType c setlocal et
@@ -1538,7 +1537,7 @@ function s:CONFIG_txkn() "{{{
     let g:MARK_TICL = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
     "TODO
     "let g:MARK_datanew = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
-    echo "[!!!] CONFIG_txkn loaded"
+    "echo "[!!!] CONFIG_txkn loaded"
 
 endfunction "}}}
 
@@ -1774,9 +1773,9 @@ augroup LargeFile
 augroup END
 
 function OpenLargeFile() "{{{
-    if g:flgtx==1
-        return
-    endif
+    "if g:flgtx==1
+    "    return
+    "endif
     "call Msgbox(&filetype)
     if &filetype == 'help'
         return
