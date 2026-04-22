@@ -306,6 +306,9 @@ function s:CONFIG_vim_base() "{{{
     nnoremap <c-g> 1
 
     let g:vimsyn_embed = 'P'
+
+    " 翻页光标在行中列数不变
+    set nostartofline
     " }}}
 endfunction "}}}
 
@@ -319,6 +322,7 @@ endif
 function s:CONFIG_vimplug() "{{{
     call plug#begin('~/.vim/plugged')
     "temp {{{
+    Plug 'psliwka/vim-smoothie'
     Plug 'brglng/vim-im-select'
     "Plug 'markmap/coc-markmap'
     Plug 'github/copilot.vim'
