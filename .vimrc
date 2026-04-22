@@ -596,7 +596,7 @@ function s:CONFIG_plugs_base() "{{{
     "let g:vista_ctags_executable = 'C:\tools\open_code\ctags-2020-10-26_p5.9.20201025.0-2-g5d000b1a-x86\ctags.exe'
     let g:vista_executive_for = {'lua': 'coc', 'typescript': 'coc', 'go': 'coc', 'c': 'coc', 'javascript': 'coc', 'html': 'coc', 'rust': 'coc', 'cpp': 'coc', 'css': 'coc', 'python': 'coc','vim':'ctags','java':'coc','json':'coc'}
     let g:vista_sidebar_position = 'vertical topleft'
-    let g:vista_sidebar_width = 30
+    let g:vista_sidebar_width = 50
     let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
     "  Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind. 
     let  g:vista#renderer#enable_icon  =  0
@@ -1008,7 +1008,7 @@ function s:CONFIG_au_filetype() "{{{
     "autocmd FileType markdown syn match m22 '__.\{-1,}__' containedin=ALL contained |hi m22 guifg=springgreen
     "}}}
     autocmd FileType markdown nnoremap <leader>` ciw``<esc>P
-    autocmd FileType markdown setlocal foldlevel=0
+    autocmd FileType markdown setlocal foldlevel=1
     "autocmd FileType markdown setlocal foldlevel=99
     "let g:vim_markdown_strikethrough = 1
     autocmd FileType markdown set synmaxcol =0 "超出后影响后续 所有行 高亮
@@ -1288,6 +1288,10 @@ function s:CONFIG_map() "{{{
     " EasyAlign
     " markdown table
     nnoremap  <Leader>tt :%EasyAlign *\|<cr>
+
+    " wrap switch
+    nnoremap  <Leader>w :set wrap!<cr>
+
 endfunction "}}}
 
 function s:CONFIG_cmd() "{{{
@@ -1789,9 +1793,9 @@ function OpenLargeFile() "{{{
     ":call libcallnr("D:\\code\\bypass\\WndOpa\\gvim_across_max.dll", "AcrossFullScreen", 0)
     set nowrap
     syntax off
-    set guifont=sarasa_mono_SC_Nerd:h8:W600
-    set lines=55
-    set columns=269
+    "set guifont=sarasa_mono_SC_Nerd:h8:W600
+    "set lines=55
+    "set columns=269
     "call AcrossFullScreen()
     " display message
     autocmd VimEnter *  echo "file >" . (g:LargeFileLimit / 1024 ) . " KB, syntax nowrap off, guifont 8"
