@@ -325,7 +325,7 @@ function s:CONFIG_vimplug() "{{{
     Plug 'psliwka/vim-smoothie'
     Plug 'brglng/vim-im-select'
     "Plug 'markmap/coc-markmap'
-    Plug 'github/copilot.vim'
+    "Plug 'github/copilot.vim'
     Plug 'jeetsukumaran/vim-filebeagle'
     "Plug 'preservim/nerdtree'
     "Plug 'justinmk/vim-dirvish'
