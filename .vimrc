@@ -1046,12 +1046,17 @@ function s:CONFIG_au_filetype() "{{{
 
     "remote_foreground(v:servername)
 
-    autocmd FileType * call <SID>def_base_syntax() 
+    "autocmd FileType * call <SID>def_base_syntax() 
+    autocmd BufEnter,BufWinEnter * call s:def_base_syntax()
     function! s:def_base_syntax() "{{{
-        syntax match commonOperator "\(+\|=\|-\|\^\|\*\|&\||\|>\|!\)"
-        syntax match baseDelimiter ","
-        hi link commonOperator Operator
-        hi link baseDelimiter Special
+        syntax match baseOperator "\(+\|=\|-\|\^\|\*\|&\||\|>\|!\|\\\|\/\)"
+        syntax match baseDelimiter "\(,\|:\)"
+        hi default link baseOperator red
+        hi default baseDelimiter ctermfg=red guifg=red
+        "hi default baseDelimiter ctermfg=red ctermbg=black guifg=red guibg=black
+        "hi default baseDelimiter ctermfg=black ctermbg=107 guifg=#777777 guibg=#333333
+        "hi default baseDelimiter ctermbg=black guibg=black ctermfg=blue guifg=blue
+        "hi link baseDelimiter Special
     endfunction "}}}
 endfunction "}}}
 
@@ -2066,6 +2071,31 @@ if s:is_win
     autocmd InsertEnter * AsyncRun /mnt/d/tools/im-select.exe 2052
     autocmd InsertLeave * AsyncRun /mnt/d/tools/im-select.exe 1033
 endif
+
+
+function! GetSyntax()
+    let l:s = synID(line('.'), col('.'), 1)
+    let l:name = synIDattr(l:s, 'name')
+    
+    " 修正 synstack 参数，并增加空列表判断
+    let l:stack = synstack(line('.'), col('.'))
+    if empty(l:stack)
+        let l:trans = ''
+    else
+        let l:trans = synIDattr(l:stack[-1], 'name')
+    endif
+
+    if l:name == ''
+        echo "No syntax group here."
+    elseif l:name == l:trans || l:trans == ''
+        echo "Syntax Group: " . l:name
+    else
+        echo "Syntax Group: " . l:name . " -> links to: " . l:trans
+    endif
+endfunction
+
+" 定义一个命令，方便在命令行输入 :Syntax 即可调用
+command! Syntax call GetSyntax()
 " }}}
 
 
