@@ -19,6 +19,28 @@ cp default.custom.yaml double_pinyin_flypy.custom.yaml ~/.config/wlpinyin
 
 run ~/code/wlpinyin/build/wlpinyin
 
+## debian fcitx5 小鹤双拼
+
+安装依赖并部署：
+```
+sudo apt install fcitx5 fcitx5-rime
+```
+小鹤双拼用 plum 安装（apt 包提供的是自然码，不是小鹤）：
+```
+git clone https://github.com/rime/plum ~/code/plum
+rime_dir=~/.local/share/fcitx5/rime bash ~/code/plum/rime-install double-pinyin luna-pinyin
+```
+配置链接到 dotfiles：
+```
+ln -sf ~/dotfiles/rime/default.custom.yaml ~/.local/share/fcitx5/rime/
+ln -sf ~/dotfiles/rime/double_pinyin_flypy.custom.yaml ~/.local/share/fcitx5/rime/
+```
+重新部署：
+```
+fcitx5-remote -r
+# 或重启 fcitx5：pkill fcitx5 && fcitx5 -d
+```
+
 ### xwayland ibus
 
 put these in /etc/environment

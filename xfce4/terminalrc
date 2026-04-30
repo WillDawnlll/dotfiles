@@ -1,0 +1,20 @@
+[Configuration]
+FontName=Terminess Nerd Font Mono Bold 11
+FontUseSystem=FALSE
+MiscAlwaysShowTabs=TRUE
+MucCommodityTab=TRUE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_IBEAM
+MiscDefaultGeometry=80x24
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=FALSE
+MiscMouseAutohide=FALSE
+MiscMouseWheelZoom=TRUE
+MiscToolbarDefault=FALSE
+MiscUrgencyBlinks=FALSE
+MiscShowRelaunchDialog=TRUE
+MiscTabStyle=MONOSPACE
+MiscTabCloseButtons=TRUE
+ScrollingBar=TERMINAL_SCROLLBAR_NONE
+ScrollingLines=10000
+ScrollingUnlimited=FALSE
