@@ -1,0 +1,10 @@
+# Example environment file for Xfce
+
+# Set keyboard layout to English
+XKB_DEFAULT_LAYOUT=
+
+# Set cursor theme
+XCURSOR_THEME=Adwaita
+
+# Extend PATH for bemenu and local scripts
+PATH=/home/p1/bin:/home/p1/.local/bin:/usr/local/bin:/usr/bin:/bin
