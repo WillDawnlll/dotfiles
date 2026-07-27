@@ -1057,6 +1057,9 @@ function s:CONFIG_au_filetype() "{{{
         "hi default baseDelimiter ctermbg=black guibg=black ctermfg=blue guifg=blue
         "hi link baseDelimiter Special
     endfunction "}}}
+
+    let g:is_stdin=0
+    autocmd StdinReadPost * let g:is_stdin=1
 endfunction "}}}
 
 function s:CONFIG_macro() "{{{
@@ -1079,7 +1082,8 @@ function s:CONFIG_map() "{{{
     nmap <leader>lf :Leaderf! file<CR>
     nmap <leader>lb :Leaderf! buffer<CR>
     nmap <leader>lj :Leaderf! jumps<CR>
-    nmap <leader>lr :Leaderf --regexMode rg --ignore-file D:\codeex\leaderf_ignore<CR>
+    nmap <leader>lr :Leaderf --regexMode rg <CR>
+    "nmap <leader>lr :Leaderf --regexMode rg --ignore-file D:\codeex\leaderf_ignore<CR>
     nmap <leader>lfr :Leaderf  rg --ignore-file D:\codeex\leaderf_ignore<CR>
     xnoremap <leader>gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
     noremap <leader>rr :<C-U>Leaderf! rg --recall<CR>
@@ -1535,6 +1539,13 @@ command Pyt call quickui#terminal#open('python', opts)
 "
 function s:CONFIG_txkn() "{{{
     let g:MARK_TICL = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
+
+    "domain '\v<[0-9a-z-]+(\.[0-9a-z-]+)+\.[a-z]{2,}>'
+    let g:MARK_CCCSV =['.*hostname.*','false\c','true\c','2026','cc.csv','\<fofaip\>','\<iprdns\>','\<iocext\>','\<iocpv\>','\<iocctxt\>','task_',',\d\{2,\},','\<200\>','port[^,]*,']",'\v<\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}>',]
+    autocmd StdinReadPost * MarkLoad CCCSV
+    if g:is_stdin==1
+        echo "[!!!] CONFIG_txkn loaded, is_stdin, MarkLoad CCCSV"
+    endif
     "TODO
     "let g:MARK_datanew = ['SpaceMapping_\w\+', 'sas_de\w\+', '\<is_egress_ip\>']
     "echo "[!!!] CONFIG_txkn loaded"
@@ -2099,6 +2110,9 @@ endfunction
 
 " 定义一个命令，方便在命令行输入 :Syntax 即可调用
 command! Syntax call GetSyntax()
+
+"nnoremap <Leader>r :execute '%!rg ' . shellescape(getreg('+')) . ' .\|sort'<CR>:doautocmd StdinReadPost<CR>
+nnoremap <Leader>r :execute '%!rg ' . shellescape(getreg('+')) . ' .\|sort'<CR>:MarkLoad CCCSV<CR>
 " }}}
 
 
