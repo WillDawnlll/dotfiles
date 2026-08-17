@@ -31,6 +31,7 @@ accordion-padding = 30
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
+#default-root-container-layout = 'dwindle'
 
 # Possible values: horizontal|vertical|auto
 # 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
@@ -130,6 +131,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    alt-m = 'workspace m'
+    alt-t = 'workspace t'
     alt-0 = 'workspace 0'
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
@@ -174,6 +177,8 @@ automatically-unhide-macos-hidden-apps = false
     #alt-z = 'workspace Z'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    alt-shift-m = 'move-node-to-workspace m'
+    alt-shift-t = 'move-node-to-workspace t'
     alt-shift-0 = 'move-node-to-workspace 0'
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
@@ -226,11 +231,14 @@ automatically-unhide-macos-hidden-apps = false
         3 = 1
         4 = 1
         5 = 1
-        6 = 2
-        7 = 2
-        8 = 2
-        9 = 2
-        0 = 2
+        6 = 3
+        7 = 3
+        8 = 3
+        9 = 3
+        0 = 3
+        m = 2
+        t = 2
+		
 
 
     [[on-window-detected]]
@@ -252,6 +260,7 @@ automatically-unhide-macos-hidden-apps = false
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
     f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+    #y = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
